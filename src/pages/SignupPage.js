@@ -1,10 +1,8 @@
-// src/pages/SignupPage.js
-
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-const API_URL = 'http://localhost:5005/api'
+import { API_URL } from '../consts'
 
 function SignupPage(props) {
   const [email, setEmail] = useState('')

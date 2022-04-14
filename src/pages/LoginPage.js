@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { AuthContext } from '../context/auth.context'
-const API_URL = process.env.REACT_API_URL
+const API_URL = window.env.REACT_API_URL
 
 function LoginPage(props) {
   const { storeToken, authenticateUser } = useContext(AuthContext)
@@ -20,7 +20,6 @@ function LoginPage(props) {
     e.preventDefault()
     // Create an object representing the request body
     const requestBody = { email, password }
-
     // Make an axios request to the API
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state

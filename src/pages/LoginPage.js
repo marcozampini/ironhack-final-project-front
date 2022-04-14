@@ -8,19 +8,19 @@ const API_URL = 'http://localhost:5005/api'
 function LoginPage(props) {
   const { storeToken, authenticateUser } = useContext(AuthContext)
 
-  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState(undefined)
 
   const navigate = useNavigate()
 
-  const handleUsername = (e) => setUsername(e.target.value)
+  const handleEmail = (e) => setEmail(e.target.value)
   const handlePassword = (e) => setPassword(e.target.value)
 
   const handleLoginSubmit = (e) => {
     e.preventDefault()
     // Create an object representing the request body
-    const requestBody = { username, password }
+    const requestBody = { email, password }
 
     // Make an axios request to the API
     // If POST request is successful redirect to login page
@@ -46,13 +46,8 @@ function LoginPage(props) {
       <h1>Login</h1>
 
       <form onSubmit={handleLoginSubmit}>
-        <label>Username:</label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={handleUsername}
-        />
+        <label>Email:</label>
+        <input type="email" name="email" value={email} onChange={handleEmail} />
 
         <label>Password:</label>
         <input

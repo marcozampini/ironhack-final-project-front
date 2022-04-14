@@ -1,11 +1,14 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
+import IsAnonymous from './components/IsAnonymous'
+import IsPrivate from './components/IsPrivate'
 
 import Sidebar from './components/layout/Sidebar'
-import HomePage from './pages/HomePage'
+import LandingPage from './pages/LandingPage'
 import SignupPage from './pages/SignupPage'
-import IsAnonymous from './components/IsAnonymous'
 import LoginPage from './pages/LoginPage'
+import Boards from './pages/Boards'
+import Board from './pages/Board'
 
 function App() {
   return (
@@ -13,7 +16,7 @@ function App() {
       <Sidebar />
       <main className="main">
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<LandingPage />} />
           <Route
             path="/signup"
             element={
@@ -28,6 +31,22 @@ function App() {
               <IsAnonymous>
                 <LoginPage />
               </IsAnonymous>
+            }
+          />
+          <Route
+            path="/boards"
+            element={
+              <IsPrivate>
+                <Boards />
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/boards/boardId"
+            element={
+              <IsPrivate>
+                <Board />
+              </IsPrivate>
             }
           />
         </Routes>

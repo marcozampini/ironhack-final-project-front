@@ -20,7 +20,9 @@ const Sidebar = () => {
   }
   return (
     <aside className={sidebarClass}>
-      <h2>{APP_NAME}</h2>
+      <h2>
+        <Link to="./">{APP_NAME}</Link>
+      </h2>
       {isLoggedIn && (
         <>
           <h3>Boards</h3>

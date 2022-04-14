@@ -1,7 +1,7 @@
-import { APP_NAME } from '../../consts'
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../context/auth.context'
+const APP_NAME = process.env.REACT_APP_NAME
 
 const Sidebar = () => {
   const { isLoggedIn, logOutUser } = useContext(AuthContext)

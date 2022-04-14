@@ -29,11 +29,11 @@ function AuthProviderWrapper(props) {
     if (storedToken) {
       // We must send the JWT token in the request's "Authorization" Headers
       axios
-        .get(`${API_URL}/api/auth/verify`, {
+        .get(`${API_URL}/auth/verify`, {
           headers: { Authorization: `Bearer ${storedToken}` },
         })
         .then((response) => {
-          console.log('USER IS LOGGED IN!')
+          //console.log('USER IS LOGGED IN!')
 
           // If the server verifies that JWT is valid
           const user = response.data
@@ -43,7 +43,7 @@ function AuthProviderWrapper(props) {
           setUser(user)
         })
         .catch((error) => {
-          console.log('USER IS LOGGED OUT!')
+          //console.log('USER IS LOGGED OUT!')
           // If the server sends an error response (invalid token)
           // Update state variables
           setIsLoggedIn(false)

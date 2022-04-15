@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../context/auth.context'
 import './Sidebar.css'
-const APP_NAME = window.env.REACT_APP_NAME
+const APP_NAME = process.env.REACT_APP_NAME
 
 const Sidebar = () => {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext)

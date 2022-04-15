@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { AuthContext } from '../context/auth.context'
-const API_URL = window.env.REACT_API_URL
+const API_URL = process.env.REACT_APP_API_URL
 
 function LoginPage(props) {
   const { storeToken, authenticateUser } = useContext(AuthContext)

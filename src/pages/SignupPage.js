@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-const API_URL = window.env.REACT_API_URL
+const API_URL = process.env.REACT_APP_API_URL
 
 function SignupPage(props) {
   const [email, setEmail] = useState('')

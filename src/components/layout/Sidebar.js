@@ -1,8 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../context/auth.context'
 import './Sidebar.css'
 const APP_NAME = process.env.REACT_APP_NAME
+const API_URL = process.env.REACT_APP_API_URL
 
 const Sidebar = () => {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext)
@@ -18,6 +20,25 @@ const Sidebar = () => {
       setToggleMenuText('Close menu')
     }
   }
+
+  const savedToken = localStorage.getItem('authToken')
+
+  const [boards, setBoards] = useState([])
+  const getAllBoards = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/boards`, {
+        headers: { Authorization: `Bearer ${savedToken}` },
+      })
+      setBoards(response.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    getAllBoards()
+  }, [boards])
+
   return (
     <aside className={sidebarClass}>
       <h2>
@@ -25,13 +46,26 @@ const Sidebar = () => {
       </h2>
       {isLoggedIn && (
         <>
-          <h3>Boards</h3>
+          <h3>
+            <Link to="./boards">Boards</Link>
+          </h3>
+
+          {boards && (
+            <ul>
+              {boards.map((board) => {
+                return (
+                  <li key={board._id}>
+                    <Link to={'boards/' + board._id}>{board.name}</Link>
+                  </li>
+                )
+              })}
+            </ul>
+          )}
+
           <ul>
-            <li>First board</li>
-            <li>Second board</li>
-          </ul>
-          <ul>
-            <li>Create a new board</li>
+            <li>
+              <Link to="./boards/new">Create a new board</Link>
+            </li>
             <li>Pending invitations (1)</li>
           </ul>
         </>

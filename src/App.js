@@ -9,6 +9,7 @@ import SignupPage from './pages/SignupPage'
 import LoginPage from './pages/LoginPage'
 import Boards from './pages/Boards'
 import Board from './pages/Board'
+import NewBoard from './pages/NewBoard'
 
 function App() {
   return (
@@ -42,7 +43,15 @@ function App() {
             }
           />
           <Route
-            path="/boards/boardId"
+            path="/boards/new"
+            element={
+              <IsPrivate>
+                <NewBoard />
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/boards/:boardId"
             element={
               <IsPrivate>
                 <Board />

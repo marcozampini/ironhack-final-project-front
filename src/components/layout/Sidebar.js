@@ -25,7 +25,9 @@ const Sidebar = () => {
       </h2>
       {isLoggedIn && (
         <>
-          <h3>Boards</h3>
+          <h3>
+            <Link to="./boards">Boards</Link>
+          </h3>
           <ul>
             <li>First board</li>
             <li>Second board</li>

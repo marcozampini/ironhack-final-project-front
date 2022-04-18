@@ -42,7 +42,7 @@ function App() {
             }
           />
           <Route
-            path="/boards/boardId"
+            path="/boards/:boardId"
             element={
               <IsPrivate>
                 <Board />

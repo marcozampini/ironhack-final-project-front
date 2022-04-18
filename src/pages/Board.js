@@ -38,7 +38,11 @@ const Board = () => {
                 <p>Status: {list.status}</p>
                 <ul>
                   {list.names.map((name) => {
-                    return <li key={name._id}>{name.value}</li>
+                    return (
+                      <li key={name._id}>
+                        {name.value} - w: {name.weight}
+                      </li>
+                    )
                   })}
                 </ul>
               </div>

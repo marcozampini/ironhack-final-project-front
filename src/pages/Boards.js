@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import NewBoardForm from '../components/NewBoardForm'
 const API_URL = process.env.REACT_APP_API_URL
 
 const Boards = () => {
@@ -20,23 +21,33 @@ const Boards = () => {
 
   useEffect(() => {
     getAllBoards()
-  }, [])
+  }, [boards])
 
   return (
     <>
       <h1>Boards</h1>
-      {boards.map((board) => {
-        return (
-          <div key={board._id}>
-            <h2>
-              <Link to={board._id}>{board.name}</Link>
-            </h2>
-            <p>Created by {board.owner}</p>
-            <p>xxx members</p>
-            <p>xxx names</p>
+      {boards ? (
+        <>
+          <div className="boards">
+            {boards.map((board) => {
+              return (
+                <div key={board._id}>
+                  <h2>
+                    <Link to={board._id}>{board.name}</Link>
+                  </h2>
+                  <p>Created by {board.owner}</p>
+                  <p>xxx members</p>
+                  <p>xxx names</p>
+                </div>
+              )
+            })}
           </div>
-        )
-      })}
+          <h2>Create a new board</h2>
+        </>
+      ) : (
+        <p>No boards created. Why don't you create a new board?</p>
+      )}
+      <NewBoardForm />
     </>
   )
 }

@@ -9,6 +9,7 @@ import SignupPage from './pages/SignupPage'
 import LoginPage from './pages/LoginPage'
 import Boards from './pages/Boards'
 import Board from './pages/Board'
+import NewBoard from './pages/NewBoard'
 
 function App() {
   return (
@@ -38,6 +39,14 @@ function App() {
             element={
               <IsPrivate>
                 <Boards />
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/boards/new"
+            element={
+              <IsPrivate>
+                <NewBoard />
               </IsPrivate>
             }
           />

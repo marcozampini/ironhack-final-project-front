@@ -22,7 +22,7 @@ const Board = () => {
 
   useEffect(() => {
     getBoard()
-  }, [])
+  }, [board])
 
   return (
     <>

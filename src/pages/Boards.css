@@ -3,6 +3,7 @@
   display: flex;
   flex-wrap: wrap;
 }
+.board,
 .list {
   margin-right: 1rem;
   margin-bottom: 1rem;

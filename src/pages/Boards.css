@@ -1,0 +1,12 @@
+.boards,
+.lists {
+  display: flex;
+  flex-wrap: wrap;
+}
+.list {
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+.list ul {
+  list-style: none;
+}

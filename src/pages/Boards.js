@@ -23,7 +23,7 @@ const Boards = () => {
 
   useEffect(() => {
     getAllBoards()
-  }, [boards])
+  }, [])
 
   return (
     <>
@@ -33,11 +33,14 @@ const Boards = () => {
           <div className="boards">
             {boards.map((board) => {
               return (
-                <div key={board._id}>
+                <div className="board" key={board._id}>
                   <h2>
                     <Link to={board._id}>{board.name}</Link>
                   </h2>
-                  <p>Created by {board.owner}</p>
+                  <p>
+                    Created by {board.owner}{' '}
+                    {board.isOwner && <span>It's me!</span>}
+                  </p>
                   <p>xxx members</p>
                   <p>xxx names</p>
                 </div>

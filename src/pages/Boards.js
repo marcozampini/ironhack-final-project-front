@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import NewBoardForm from '../components/NewBoardForm'
+import './Boards.css'
+
 const API_URL = process.env.REACT_APP_API_URL
 
 const Boards = () => {
@@ -21,7 +23,20 @@ const Boards = () => {
 
   useEffect(() => {
     getAllBoards()
-  }, [boards])
+  }, [])
+
+  const handleDelete = async (boardId, event) => {
+    const confirmed = window.confirm('Do you want to delete this board?')
+    if (confirmed) {
+      try {
+        await axios.delete(`${API_URL}/boards/${boardId}`, {
+          headers: { Authorization: `Bearer ${savedToken}` },
+        })
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
 
   return (
     <>
@@ -31,11 +46,18 @@ const Boards = () => {
           <div className="boards">
             {boards.map((board) => {
               return (
-                <div key={board._id}>
+                <div className="board" key={board._id}>
                   <h2>
                     <Link to={board._id}>{board.name}</Link>
                   </h2>
-                  <p>Created by {board.owner}</p>
+                  <p>
+                    Created by {board.owner}{' '}
+                    {board.isOwner && (
+                      <button onClick={(e) => handleDelete(board._id, e)}>
+                        Delete board
+                      </button>
+                    )}
+                  </p>
                   <p>xxx members</p>
                   <p>xxx names</p>
                 </div>

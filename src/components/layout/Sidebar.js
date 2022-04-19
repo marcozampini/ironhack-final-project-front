@@ -24,6 +24,7 @@ const Sidebar = () => {
   const savedToken = localStorage.getItem('authToken')
 
   const [boards, setBoards] = useState([])
+
   const getAllBoards = async () => {
     try {
       const response = await axios.get(`${API_URL}/boards`, {
@@ -37,7 +38,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     getAllBoards()
-  }, [boards])
+  }, [])
 
   return (
     <aside className={sidebarClass}>

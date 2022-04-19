@@ -56,6 +56,15 @@ function BoardProviderWrapper(props) {
       console.error(error)
     }
   }
+  async function deleteName(listId, nameId) {
+    try {
+      await axios.delete(`${API_URL}/lists/${listId}/${nameId}`, {
+        headers: { Authorization: `Bearer ${savedToken}` },
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <BoardContext.Provider
@@ -64,6 +73,7 @@ function BoardProviderWrapper(props) {
         createBoard,
         deleteBoard,
         deleteList,
+        deleteName,
       }}
     >
       {props.children}

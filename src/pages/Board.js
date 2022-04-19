@@ -10,7 +10,7 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const Board = () => {
   const savedToken = localStorage.getItem('authToken')
-  const { deleteBoard, deleteList } = useContext(BoardContext)
+  const { deleteBoard, deleteList, deleteName } = useContext(BoardContext)
   const navigate = useNavigate()
   const [board, setBoard] = useState(null)
   const [modalVisible, setModalVisible] = useState(false)
@@ -44,6 +44,13 @@ const Board = () => {
     if (confirmed) {
       await deleteList(boardId, userId)
       navigate('/boards')
+    }
+  }
+  const handleDeleteName = async (listId, nameId, event) => {
+    const confirmed = window.confirm('Do you want to delete this name?')
+    if (confirmed) {
+      await deleteName(listId, nameId)
+      getBoard()
     }
   }
 
@@ -90,8 +97,16 @@ const Board = () => {
                     {list.names.map((name) => {
                       return (
                         <li key={name._id}>
-                          {name.value} - w: {name.weight}{' '}
-                          {list.isOwner && <button>Delete</button>}
+                          {name.value} - {name._id} - w: {name.weight}{' '}
+                          {list.isOwner && (
+                            <button
+                              onClick={(e) =>
+                                handleDeleteName(list._id, name._id, e)
+                              }
+                            >
+                              Delete
+                            </button>
+                          )}
                         </li>
                       )
                     })}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import './Boards.css'
@@ -11,7 +11,7 @@ const Board = () => {
   const [board, setBoard] = useState(null)
   const { boardId } = useParams()
 
-  const getBoard = async () => {
+  const getBoard = useCallback(async () => {
     try {
       const response = await axios.get(`${API_URL}/boards/${boardId}`, {
         headers: { Authorization: `Bearer ${savedToken}` },
@@ -20,11 +20,11 @@ const Board = () => {
     } catch (error) {
       console.error(error)
     }
-  }
+  }, [boardId, savedToken])
 
   useEffect(() => {
     getBoard()
-  }, [])
+  }, [getBoard])
 
   const handleDelete = async (event) => {
     const confirmed = window.confirm('Do you want to delete this board?')

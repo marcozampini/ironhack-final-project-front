@@ -73,7 +73,6 @@ const Board = () => {
         <>
           <h1>Board {board.name}</h1>
           <p>Created by {board.owner.username}</p>
-          <button onClick={handleAddName}>Add name</button>
           {board.isOwner && (
             <button onClick={handleDeleteBoard}>Delete board</button>
           )}
@@ -82,6 +81,9 @@ const Board = () => {
               return (
                 <div className="list" key={list._id}>
                   <h2>List by {list.owner.username}</h2>
+                  {list.isOwner && (
+                    <button onClick={handleAddName}>Add name</button>
+                  )}
                   {list.isOwner && !board.isOwner && (
                     <button
                       onClick={(e) =>
@@ -91,7 +93,6 @@ const Board = () => {
                       Delete list
                     </button>
                   )}
-                  {list.isOwner && <span>It's me!</span>}
                   <p>List id: {list._id}</p>
                   <ul>
                     {list.names.map((name) => {

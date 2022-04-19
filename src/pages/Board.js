@@ -1,6 +1,8 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useContext } from 'react'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
+import { BoardContext } from '../context/board.context'
+
 import './Boards.css'
 import NameSearchModal from '../components/layout/NameSearchModal'
 
@@ -8,6 +10,7 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const Board = () => {
   const savedToken = localStorage.getItem('authToken')
+  const { deleteBoard } = useContext(BoardContext)
   const navigate = useNavigate()
   const [board, setBoard] = useState(null)
   const [modalVisible, setModalVisible] = useState(false)
@@ -31,14 +34,8 @@ const Board = () => {
   const handleDelete = async (event) => {
     const confirmed = window.confirm('Do you want to delete this board?')
     if (confirmed) {
-      try {
-        await axios.delete(`${API_URL}/boards/${boardId}`, {
-          headers: { Authorization: `Bearer ${savedToken}` },
-        })
-        navigate('/boards')
-      } catch (error) {
-        console.error(error)
-      }
+      await deleteBoard(boardId)
+      navigate('/boards')
     }
   }
 

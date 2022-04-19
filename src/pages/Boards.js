@@ -25,6 +25,19 @@ const Boards = () => {
     getAllBoards()
   }, [])
 
+  const handleDelete = async (boardId, event) => {
+    const confirmed = window.confirm('Do you want to delete this board?')
+    if (confirmed) {
+      try {
+        await axios.delete(`${API_URL}/boards/${boardId}`, {
+          headers: { Authorization: `Bearer ${savedToken}` },
+        })
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
+
   return (
     <>
       <h1>Boards</h1>
@@ -39,7 +52,11 @@ const Boards = () => {
                   </h2>
                   <p>
                     Created by {board.owner}{' '}
-                    {board.isOwner && <span>It's me!</span>}
+                    {board.isOwner && (
+                      <button onClick={(e) => handleDelete(board._id, e)}>
+                        Delete board
+                      </button>
+                    )}
                   </p>
                   <p>xxx members</p>
                   <p>xxx names</p>

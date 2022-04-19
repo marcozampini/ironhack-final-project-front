@@ -47,9 +47,7 @@ const Board = () => {
           <h1>Board {board.name}</h1>
           <p>Created by {board.owner}</p>
           {board.isOwner && (
-            <span>
-              <button onClick={handleDelete}>Delete</button>
-            </span>
+            <button onClick={handleDelete}>Delete board</button>
           )}
           <div className="lists">
             {board.lists.map((list) => {

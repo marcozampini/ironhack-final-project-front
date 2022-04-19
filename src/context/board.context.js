@@ -4,11 +4,12 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const BoardContext = createContext()
 
+const savedToken = localStorage.getItem('authToken')
+
 function BoardProviderWrapper(props) {
   const [boards, setBoards] = useState([])
   const getAllBoards = async () => {
     try {
-      const savedToken = localStorage.getItem('authToken')
       const response = await axios.get(`${API_URL}/boards`, {
         headers: { Authorization: `Bearer ${savedToken}` },
       })
@@ -22,9 +23,19 @@ function BoardProviderWrapper(props) {
     getAllBoards()
   }, [])
 
+  async function createBoard(formData) {
+    try {
+      await axios.post(`${API_URL}/boards`, formData, {
+        headers: { Authorization: `Bearer ${savedToken}` },
+      })
+      getAllBoards()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   async function deleteBoard(boardId) {
     try {
-      const savedToken = localStorage.getItem('authToken')
       await axios.delete(`${API_URL}/boards/${boardId}`, {
         headers: { Authorization: `Bearer ${savedToken}` },
       })
@@ -38,6 +49,7 @@ function BoardProviderWrapper(props) {
     <BoardContext.Provider
       value={{
         boards,
+        createBoard,
         deleteBoard,
       }}
     >

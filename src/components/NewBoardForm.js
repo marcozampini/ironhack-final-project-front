@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-const API_URL = process.env.REACT_APP_API_URL
+import React, { useState, useContext } from 'react'
+import { BoardContext } from '../context/board.context'
 
 const NewBoardForm = () => {
+  const { createBoard } = useContext(BoardContext)
+
   const savedToken = localStorage.getItem('authToken')
   const [formData, setFormData] = useState({
     name: '',
@@ -11,16 +12,10 @@ const NewBoardForm = () => {
   const handleSubmit = async (event) => {
     // do not navigate the browser on form submit
     event.preventDefault()
-    try {
-      await axios.post(`${API_URL}/boards`, formData, {
-        headers: { Authorization: `Bearer ${savedToken}` },
-      })
-      setFormData({
-        name: '',
-      })
-    } catch (error) {
-      console.error(error)
-    }
+    createBoard(formData)
+    setFormData({
+      name: '',
+    })
   }
   const handleChanges = (event) => {
     const { value } = event.target

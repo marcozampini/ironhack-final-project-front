@@ -56,7 +56,6 @@ const Board = () => {
                   <h2>List by {list.owner}</h2>
                   {list.isOwner && <span>It's me!</span>}
                   <p>List id: {list._id}</p>
-                  <p>Status: {list.status}</p>
                   <ul>
                     {list.names.map((name) => {
                       return (

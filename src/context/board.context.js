@@ -8,6 +8,7 @@ const savedToken = localStorage.getItem('authToken')
 
 function BoardProviderWrapper(props) {
   const [boards, setBoards] = useState([])
+
   const getAllBoards = async () => {
     try {
       const response = await axios.get(`${API_URL}/boards`, {
@@ -45,12 +46,24 @@ function BoardProviderWrapper(props) {
     }
   }
 
+  async function deleteList(boardId, userId) {
+    try {
+      await axios.delete(`${API_URL}/boards/${boardId}/${userId}`, {
+        headers: { Authorization: `Bearer ${savedToken}` },
+      })
+      getAllBoards()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <BoardContext.Provider
       value={{
         boards,
         createBoard,
         deleteBoard,
+        deleteList,
       }}
     >
       {props.children}

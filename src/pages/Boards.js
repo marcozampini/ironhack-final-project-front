@@ -27,7 +27,7 @@ const Boards = () => {
                     <Link to={board._id}>{board.name}</Link>
                   </h2>
                   <p>
-                    Created by {board.owner}{' '}
+                    Created by {board.owner.username}{' '}
                     {board.isOwner && (
                       <button onClick={(e) => handleDelete(board._id, e)}>
                         Delete board

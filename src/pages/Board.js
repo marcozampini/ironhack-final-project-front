@@ -10,7 +10,7 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const Board = () => {
   const savedToken = localStorage.getItem('authToken')
-  const { deleteBoard } = useContext(BoardContext)
+  const { deleteBoard, deleteList } = useContext(BoardContext)
   const navigate = useNavigate()
   const [board, setBoard] = useState(null)
   const [modalVisible, setModalVisible] = useState(false)
@@ -31,7 +31,7 @@ const Board = () => {
     getBoard()
   }, [getBoard])
 
-  const handleDelete = async (event) => {
+  const handleDeleteBoard = async (event) => {
     const confirmed = window.confirm('Do you want to delete this board?')
     if (confirmed) {
       await deleteBoard(boardId)
@@ -39,37 +39,59 @@ const Board = () => {
     }
   }
 
+  const handleDeleteList = async (boardId, userId, event) => {
+    const confirmed = window.confirm('Do you want to delete this list?')
+    if (confirmed) {
+      await deleteList(boardId, userId)
+      navigate('/boards')
+    }
+  }
+
   const toggleModalVisibility = () => {
-    setModalVisible(!modalVisible);
+    setModalVisible(!modalVisible)
   }
 
   const handleAddName = async () => {
-    toggleModalVisibility();
+    toggleModalVisibility()
   }
 
   return (
     <>
-      <NameSearchModal boardId={boardId} isVisible={modalVisible} toggleVisibility={toggleModalVisibility} />
+      <NameSearchModal
+        boardId={boardId}
+        isVisible={modalVisible}
+        toggleVisibility={toggleModalVisibility}
+      />
       {board && (
         <>
           <h1>Board {board.name}</h1>
-          <p>Created by {board.owner}</p>
+          <p>Created by {board.owner.username}</p>
           <button onClick={handleAddName}>Add name</button>
           {board.isOwner && (
-            <button onClick={handleDelete}>Delete board</button>
+            <button onClick={handleDeleteBoard}>Delete board</button>
           )}
           <div className="lists">
             {board.lists.map((list) => {
               return (
                 <div className="list" key={list._id}>
-                  <h2>List by {list.owner}</h2>
+                  <h2>List by {list.owner.username}</h2>
+                  {list.isOwner && !board.isOwner && (
+                    <button
+                      onClick={(e) =>
+                        handleDeleteList(board._id, list.owner._id, e)
+                      }
+                    >
+                      Delete list
+                    </button>
+                  )}
                   {list.isOwner && <span>It's me!</span>}
                   <p>List id: {list._id}</p>
                   <ul>
                     {list.names.map((name) => {
                       return (
                         <li key={name._id}>
-                          {name.value} - w: {name.weight}
+                          {name.value} - w: {name.weight}{' '}
+                          {list.isOwner && <button>Delete</button>}
                         </li>
                       )
                     })}

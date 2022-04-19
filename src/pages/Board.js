@@ -2,7 +2,9 @@ import { useState, useEffect, useCallback, useContext } from 'react'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import { BoardContext } from '../context/board.context'
+
 import './Boards.css'
+import NameSearchModal from '../components/layout/NameSearchModal'
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -11,6 +13,7 @@ const Board = () => {
   const { deleteBoard } = useContext(BoardContext)
   const navigate = useNavigate()
   const [board, setBoard] = useState(null)
+  const [modalVisible, setModalVisible] = useState(false)
   const { boardId } = useParams()
 
   const getBoard = useCallback(async () => {
@@ -36,12 +39,22 @@ const Board = () => {
     }
   }
 
+  const toggleModalVisibility = () => {
+    setModalVisible(!modalVisible);
+  }
+
+  const handleAddName = async () => {
+    toggleModalVisibility();
+  }
+
   return (
     <>
+      <NameSearchModal boardId={boardId} isVisible={modalVisible} toggleVisibility={toggleModalVisibility} />
       {board && (
         <>
           <h1>Board {board.name}</h1>
           <p>Created by {board.owner}</p>
+          <button onClick={handleAddName}>Add name</button>
           {board.isOwner && (
             <button onClick={handleDelete}>Delete board</button>
           )}

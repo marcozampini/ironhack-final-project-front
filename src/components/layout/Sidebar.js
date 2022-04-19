@@ -51,7 +51,6 @@ const Sidebar = () => {
             <li>
               <Link to="./boards/new">Create a new board</Link>
             </li>
-            <li>Pending invitations (1)</li>
           </ul>
         </>
       )}

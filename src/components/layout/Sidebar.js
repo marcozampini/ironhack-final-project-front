@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../context/auth.context'
+import { BoardContext } from '../../context/board.context'
 import './Sidebar.css'
 const APP_NAME = process.env.REACT_APP_NAME
 const API_URL = process.env.REACT_APP_API_URL
@@ -21,24 +22,7 @@ const Sidebar = () => {
     }
   }
 
-  const savedToken = localStorage.getItem('authToken')
-
-  const [boards, setBoards] = useState([])
-
-  const getAllBoards = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/boards`, {
-        headers: { Authorization: `Bearer ${savedToken}` },
-      })
-      setBoards(response.data)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  useEffect(() => {
-    getAllBoards()
-  }, [])
+  const { boards } = useContext(BoardContext)
 
   return (
     <aside className={sidebarClass}>

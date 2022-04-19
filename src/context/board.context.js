@@ -22,10 +22,23 @@ function BoardProviderWrapper(props) {
     getAllBoards()
   }, [])
 
+  async function deleteBoard(boardId) {
+    try {
+      const savedToken = localStorage.getItem('authToken')
+      await axios.delete(`${API_URL}/boards/${boardId}`, {
+        headers: { Authorization: `Bearer ${savedToken}` },
+      })
+      getAllBoards()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <BoardContext.Provider
       value={{
         boards,
+        deleteBoard,
       }}
     >
       {props.children}

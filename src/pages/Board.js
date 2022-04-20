@@ -1,35 +1,27 @@
-import { useState, useEffect, useCallback, useContext } from 'react'
-import axios from 'axios'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { BoardContext } from '../context/board.context'
-import NameSearchModal from '../components/names/NameSearchModal'
 import AvatarUsername from '../components/AvatarUsername'
-import './Boards.css'
+import NameSearchModal from '../components/names/NameSearchModal'
+import { BoardContext } from '../context/board.context'
+import { CurrentBoardContext } from '../context/currentBoard.context'
 import { NameSearchContext } from '../context/nameSearch.context'
-
-const API_URL = process.env.REACT_APP_API_URL
+import './Boards.css'
 
 const Board = () => {
-  const savedToken = localStorage.getItem('authToken')
+  const { currentBoard, fetchBoard } = useContext(CurrentBoardContext)
   const { deleteBoard, deleteList, deleteName } = useContext(BoardContext)
+  const { resetSearch } = useContext(NameSearchContext)
+
+  const savedToken = localStorage.getItem('authToken')
   const navigate = useNavigate()
-  const [board, setBoard] = useState(null)
+
   const [modalVisible, setModalVisible] = useState(false)
   const { boardId } = useParams()
-  const { setCurrentBoard } = useContext(NameSearchContext)
 
   const getBoard = useCallback(async () => {
-    try {
-      const response = await axios.get(`${API_URL}/boards/${boardId}`, {
-        headers: { Authorization: `Bearer ${savedToken}` },
-      })
-      setBoard(response.data)
-      // set nameSearchContext currentBoard so adding name from the search result is possible
-      setCurrentBoard(response.data)
-    } catch (error) {
-      console.error(error)
-    }
-  }, [boardId, savedToken, setCurrentBoard])
+    resetSearch()
+    await fetchBoard(boardId)
+  }, [boardId, savedToken])
 
   useEffect(() => {
     getBoard()
@@ -78,23 +70,19 @@ const Board = () => {
     setModalVisible(!modalVisible)
   }
 
-  const handleAddName = async () => {
-    toggleModalVisibility()
-  }
-
   return (
     <>
       <NameSearchModal
         isVisible={modalVisible}
         toggleVisibility={toggleModalVisibility}
       />
-      {board && (
+      {currentBoard && (
         <>
-          {board.isOwner ? (
+          {currentBoard.isOwner ? (
             <>
-              <h1 className="board-name">{board.name}</h1>
+              <h1 className="board-name">{currentBoard.name}</h1>
               <form className="rename-board-form undisplayed">
-                <input type="text" value={board.name} />
+                <input type="text" value={currentBoard.name} />
                 <input type="submit" value="Save" onClick={handleRenameBoard} />
                 <input type="button" value="Cancel" onClick={hideRenameForm} />
               </form>
@@ -105,16 +93,16 @@ const Board = () => {
             </>
           ) : (
             <>
-              <h1>{board.name}</h1>
+              <h1>{currentBoard.name}</h1>
             </>
           )}
           <AvatarUsername
-            avatarUrl={board.owner.avatarUrl}
-            username={board.owner.username}
+            avatarUrl={currentBoard.owner.avatarUrl}
+            username={currentBoard.owner.username}
           />
 
           <div className="lists">
-            {board.lists.map((list) => {
+            {currentBoard.lists.map((list) => {
               return (
                 <div className="list" key={list._id}>
                   <h2>
@@ -125,12 +113,12 @@ const Board = () => {
                     />
                   </h2>
                   {list.isOwner && (
-                    <button onClick={handleAddName}>Add name</button>
+                    <button onClick={toggleModalVisibility}>Add name</button>
                   )}
-                  {list.isOwner && !board.isOwner && (
+                  {list.isOwner && !currentBoard.isOwner && (
                     <button
                       onClick={(e) =>
-                        handleDeleteList(board._id, list.owner._id, e)
+                        handleDeleteList(currentBoard._id, list.owner._id, e)
                       }
                     >
                       Delete list
@@ -140,7 +128,7 @@ const Board = () => {
                   <ul>
                     {list.names.map((name) => {
                       return (
-                         <li key={list._id + '--' + name._id}>
+                        <li key={list._id + '--' + name._id}>
                           {name.value} - {name._id} - w: {name.weight}{' '}
                           {list.isOwner && (
                             <button
@@ -151,7 +139,6 @@ const Board = () => {
                               Delete
                             </button>
                           )}
-
                         </li>
                       )
                     })}

@@ -1,16 +1,19 @@
 import React, { useContext } from 'react'
+import { CurrentBoardContext } from '../../context/currentBoard.context'
 import { NameSearchContext } from '../../context/nameSearch.context'
 import Name from '../names/Name'
 import './NameSearchModal.css'
+import '../layout/Sidebar.css'
 
 const NameSearchModal = ({ isVisible, toggleVisibility }) => {
+  const {currentBoardOwnedList } = useContext(CurrentBoardContext);
+
   const {
     formData,
     handleChanges,
     handleSubmit,
     searchResults,
     isRequestSent,
-    currentBoard,
   } = useContext(NameSearchContext)
 
   return (
@@ -18,6 +21,7 @@ const NameSearchModal = ({ isVisible, toggleVisibility }) => {
       {isVisible && (
         <div className="modal-container">
           <div className="modal-content">
+          {/* <div className="sidebar"> */}
             <form onSubmit={handleSubmit}>
               <label htmlFor="q">Name</label>
               <input
@@ -39,7 +43,7 @@ const NameSearchModal = ({ isVisible, toggleVisibility }) => {
                     <Name
                       key={item._id}
                       data={item}
-                      list={currentBoard?.lists.find((l) => l.isOwner)}
+                      list={currentBoardOwnedList}
                     />
                   ))) ||
                 (isRequestSent && 'No results...')}

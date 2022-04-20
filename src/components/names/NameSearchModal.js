@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import { NameSearchContext } from '../../context/nameSearch.context';
-import Name from '../names/Name';
-import './NameSearchModal.css';
+import React, { useContext } from 'react'
+import { NameSearchContext } from '../../context/nameSearch.context'
+import Name from '../names/Name'
+import './NameSearchModal.css'
 
 const NameSearchModal = ({ isVisible, toggleVisibility }) => {
   const {
@@ -11,27 +11,27 @@ const NameSearchModal = ({ isVisible, toggleVisibility }) => {
     searchResults,
     isRequestSent,
     currentBoard,
-  } = useContext(NameSearchContext);
+  } = useContext(NameSearchContext)
 
   return (
     <>
       {isVisible && (
-        <div className='modal-container'>
-          <div className='modal-content'>
+        <div className="modal-container">
+          <div className="modal-content">
             <form onSubmit={handleSubmit}>
-              <label htmlFor='q'>Name</label>
+              <label htmlFor="q">Name</label>
               <input
-                id='q'
-                type='text'
+                id="q"
+                type="text"
                 value={formData.q}
                 onChange={handleChanges}
               />
-              <input type='submit' value='search' />
+              <input type="submit" value="search" />
             </form>
-            <button className='modalCloseButton' onClick={toggleVisibility}>
+            <button className="modalCloseButton" onClick={toggleVisibility}>
               CLOSE
             </button>
-            <div className='searchResults'>
+            <div className="searchResults">
               {(searchResults.length &&
                 searchResults
                   .sort((a, b) => a.name.value.length - b.name.value.length)
@@ -48,7 +48,7 @@ const NameSearchModal = ({ isVisible, toggleVisibility }) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default NameSearchModal;
+export default NameSearchModal

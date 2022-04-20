@@ -1,10 +1,9 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { BoardContext } from '../context/board.context'
 
 const NewBoardForm = () => {
   const { createBoard } = useContext(BoardContext)
 
-  const savedToken = localStorage.getItem('authToken')
   const [formData, setFormData] = useState({
     name: '',
   })

@@ -34,6 +34,7 @@ const NewUser = (props) => {
 
   return (
     <>
+      <h2>Add a Participant</h2>
       <input
         type="text"
         placeholder="Search here"

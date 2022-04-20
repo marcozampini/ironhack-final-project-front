@@ -83,7 +83,7 @@ const Board = () => {
             <>
               <h1 className="board-name">{currentBoard.name}</h1>
               <form className="rename-board-form undisplayed">
-                <input type="text" value={currentBoard.name} />
+                <input type="text" onChange={() => {}} value={currentBoard.name} />
                 <input type="submit" value="Save" onClick={handleRenameBoard} />
                 <input type="button" value="Cancel" onClick={hideRenameForm} />
               </form>

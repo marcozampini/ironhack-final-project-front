@@ -4,7 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { BoardContext } from '../context/board.context'
 
 import './Boards.css'
-import NameSearchModal from '../components/layout/NameSearchModal'
+import NameSearchModal from '../components/names/NameSearchModal'
+import { NameSearchContext } from '../context/nameSearch.context'
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -15,6 +16,7 @@ const Board = () => {
   const [board, setBoard] = useState(null)
   const [modalVisible, setModalVisible] = useState(false)
   const { boardId } = useParams()
+  const { setCurrentBoard } = useContext(NameSearchContext)
 
   const getBoard = useCallback(async () => {
     try {
@@ -22,10 +24,12 @@ const Board = () => {
         headers: { Authorization: `Bearer ${savedToken}` },
       })
       setBoard(response.data)
+      // set nameSearchContext currentBoard so adding name from the search result is possible
+      setCurrentBoard(response.data)
     } catch (error) {
       console.error(error)
     }
-  }, [boardId, savedToken])
+  }, [boardId, savedToken, setCurrentBoard])
 
   useEffect(() => {
     getBoard()
@@ -40,16 +44,19 @@ const Board = () => {
   }
 
   const toggleModalVisibility = () => {
-    setModalVisible(!modalVisible);
+    setModalVisible(!modalVisible)
   }
 
   const handleAddName = async () => {
-    toggleModalVisibility();
+    toggleModalVisibility()
   }
 
   return (
     <>
-      <NameSearchModal boardId={boardId} isVisible={modalVisible} toggleVisibility={toggleModalVisibility} />
+      <NameSearchModal
+        isVisible={modalVisible}
+        toggleVisibility={toggleModalVisibility}
+      />
       {board && (
         <>
           <h1>Board {board.name}</h1>
@@ -68,7 +75,7 @@ const Board = () => {
                   <ul>
                     {list.names.map((name) => {
                       return (
-                        <li key={name._id}>
+                        <li key={list._id + '--' + name._id}>
                           {name.value} - w: {name.weight}
                         </li>
                       )

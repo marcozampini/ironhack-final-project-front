@@ -14,17 +14,22 @@ const NewUser = () => {
     e.preventDefault()
     setUser(e.target.value)
     // Use this in use effect with the dependency of the user
-    const userGot = await axios.get(`${API_URL}/users`, {
-      headers: { Authorization: `Bearer ${savedToken}` },
-      params: { q: e.target.value },
-    })
-    console.log(userGot)
-    setUsers(userGot.data)
+    if (!e.target.value.length) {
+      setUsers([])
+    } else {
+      const userGot = await axios.get(`${API_URL}/users`, {
+        headers: { Authorization: `Bearer ${savedToken}` },
+        params: { q: e.target.value },
+      })
+      console.log(userGot)
+      setUsers(userGot.data)
+    }
   }
   const addUserToBoard = async (userId) => {
-    console.log(currentBoard);
+    console.log(currentBoard)
+
     try {
-      const {status, data: body} = await axios.post(
+      const { status, data: body } = await axios.post(
         `${API_URL}/boards/${currentBoard._id}/${userId}`,
         {},
         {
@@ -36,6 +41,25 @@ const NewUser = () => {
       }
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  const deleteUserFromBoard = async (userId) => {
+    console.log(currentBoard)
+
+    try {
+      const response = await axios.delete(
+        `${API_URL}/boards/${currentBoard._id}/${userId}`,
+        {
+          headers: { Authorization: `Bearer ${savedToken}` },
+        }
+      )
+      if (response.status === 204) {
+        fetchBoard(currentBoard._id)
+      }
+      return response
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -54,14 +78,15 @@ const NewUser = () => {
           return (
             <li>
               {user.username}
-              {/** here you check for a state which contains a boolean
-              if the user is not in the list of current board participant
-
-               const isAlreadyInTheBoard = currentBoard.lists.some(l => l.owner._id === user._id )
-                then no button
-                otherwise, add a button
-              */}
-              <button onClick={() => addUserToBoard(user.id)}>Add</button>
+              {currentBoard.lists.some((list) => {
+                return list.owner._id === user.id
+              }) ? (
+                <button onClick={() => deleteUserFromBoard(user.id)}>
+                  Remove
+                </button>
+              ) : (
+                <button onClick={() => addUserToBoard(user.id)}>Add</button>
+              )}
             </li>
           )
         })}

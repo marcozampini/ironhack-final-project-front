@@ -38,8 +38,6 @@ const Boards = () => {
                       </button>
                     )}
                   </p>
-                  <p>xxx members</p>
-                  <p>xxx names</p>
                 </div>
               )
             })}

@@ -57,11 +57,11 @@ const Name = ({ data, list }) => {
       <div>
         {data.name.value}
         {isInList ? (
-          <button onClick={handleDelete}>REMOVE</button>
+          <button onClick={handleDelete}>Remove</button>
         ) : (
-          <button onClick={handleAdd}>ADD</button>
+          <button onClick={handleAdd}>Add</button>
         )}
-        {errorFetch.length ? <p className='errorMessage'>{errorFetch}</p> : ''}
+        {errorFetch.length ? <p className="errorMessage">{errorFetch}</p> : ''}
       </div>
     </>
   )

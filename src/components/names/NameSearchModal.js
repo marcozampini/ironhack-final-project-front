@@ -77,7 +77,7 @@ const NameSearchModal = ({ isVisible, toggleVisibility }) => {
               </form>
             </div>
             <button className="modalCloseButton" onClick={toggleVisibility}>
-              CLOSE
+              Close
             </button>
             <div className="searchResults">
               {(searchResults.length &&

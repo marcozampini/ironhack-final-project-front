@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { BoardContext } from '../context/board.context'
 import NewBoardForm from '../components/NewBoardForm'
 import './Boards.css'
+import AvatarUsername from '../components/AvatarUsername'
 
 const Boards = () => {
   const { boards, deleteBoard } = useContext(BoardContext)
@@ -27,7 +28,10 @@ const Boards = () => {
                     <Link to={board._id}>{board.name}</Link>
                   </h2>
                   <p>
-                    Created by {board.owner.username}{' '}
+                    <AvatarUsername
+                      avatarUrl={board.owner.avatarUrl}
+                      username={board.owner.username}
+                    />{' '}
                     {board.isOwner && (
                       <button onClick={(e) => handleDelete(board._id, e)}>
                         Delete board

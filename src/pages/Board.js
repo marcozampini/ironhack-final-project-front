@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback, useContext } from 'react'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import { BoardContext } from '../context/board.context'
-
-import './Boards.css'
 import NameSearchModal from '../components/layout/NameSearchModal'
+import AvatarUsername from '../components/AvatarUsername'
+import './Boards.css'
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -31,6 +31,21 @@ const Board = () => {
     getBoard()
   }, [getBoard])
 
+  const showRenameForm = (event) => {
+    document.querySelector('.board-name').classList.add('undisplayed')
+    document.querySelector('.rename-board-form').classList.remove('undisplayed')
+    document.querySelector('.rename-button').classList.add('undisplayed')
+  }
+
+  const hideRenameForm = (event) => {
+    document.querySelector('.board-name').classList.remove('undisplayed')
+    document.querySelector('.rename-board-form').classList.add('undisplayed')
+    document.querySelector('.rename-button').classList.remove('undisplayed')
+  }
+
+  const handleRenameBoard = async (event) => {
+    getBoard()
+  }
   const handleDeleteBoard = async (event) => {
     const confirmed = window.confirm('Do you want to delete this board?')
     if (confirmed) {
@@ -46,6 +61,7 @@ const Board = () => {
       navigate('/boards')
     }
   }
+
   const handleDeleteName = async (listId, nameId, event) => {
     const confirmed = window.confirm('Do you want to delete this name?')
     if (confirmed) {
@@ -71,16 +87,40 @@ const Board = () => {
       />
       {board && (
         <>
-          <h1>Board {board.name}</h1>
-          <p>Created by {board.owner.username}</p>
-          {board.isOwner && (
-            <button onClick={handleDeleteBoard}>Delete board</button>
+          {board.isOwner ? (
+            <>
+              <h1 className="board-name">{board.name}</h1>
+              <form className="rename-board-form undisplayed">
+                <input type="text" value={board.name} />
+                <input type="submit" value="Save" onClick={handleRenameBoard} />
+                <input type="button" value="Cancel" onClick={hideRenameForm} />
+              </form>
+              <button className="rename-button" onClick={showRenameForm}>
+                Rename board
+              </button>
+              <button onClick={handleDeleteBoard}>Delete board</button>
+            </>
+          ) : (
+            <>
+              <h1>{board.name}</h1>
+            </>
           )}
+          <AvatarUsername
+            avatarUrl={board.owner.avatarUrl}
+            username={board.owner.username}
+          />
+
           <div className="lists">
             {board.lists.map((list) => {
               return (
                 <div className="list" key={list._id}>
-                  <h2>List by {list.owner.username}</h2>
+                  <h2>
+                    <AvatarUsername
+                      textBefore={'List by'}
+                      avatarUrl={list.owner.avatarUrl}
+                      username={list.owner.username}
+                    />
+                  </h2>
                   {list.isOwner && (
                     <button onClick={handleAddName}>Add name</button>
                   )}

@@ -52,11 +52,15 @@ const Board = () => {
     }
   }
 
-  const handleDeleteList = async (boardId, userId, event) => {
+  const handleDeleteList = async (boardId, userId, isOwner, event) => {
     const confirmed = window.confirm('Do you want to delete this list?')
     if (confirmed) {
       await deleteList(boardId, userId)
-      navigate('/boards')
+      getBoard()
+      if (isOwner) {
+        navigate('/boards')
+      } else {
+      }
     }
   }
 
@@ -143,10 +147,16 @@ const Board = () => {
                       <i class="fa-solid fa-circle-plus"></i> Add name
                     </button>
                   )}
-                  {list.isOwner && !currentBoard.isOwner && (
+                  {((list.isOwner && !currentBoard.isOwner) ||
+                    (!list.isOwner && currentBoard.isOwner)) && (
                     <button
                       onClick={(e) =>
-                        handleDeleteList(currentBoard._id, list.owner._id, e)
+                        handleDeleteList(
+                          currentBoard._id,
+                          list.owner._id,
+                          list.isOwner,
+                          e
+                        )
                       }
                     >
                       <i class="fa-solid fa-trash-can"></i> Delete list

@@ -11,13 +11,11 @@ function CurrentBoardProviderWrapper(props) {
   const [currentBoardOwnedList, setCurrentBoardOwnedList] = useState(null)
 
   async function fetchBoard(id) {
-    console.log('fetching data for', id);
     try {
       if (id) {
         const response = await axios.get(`${API_URL}/boards/${id}`, {
           headers: { Authorization: `Bearer ${savedToken}` },
         })
-        console.log('received:', response.data);
         setCurrentBoard(response.data)
       }
     } catch (error) {
@@ -27,7 +25,6 @@ function CurrentBoardProviderWrapper(props) {
 
   useEffect(() => {
     if (currentBoard?.lists) {
-      console.log('SETTING OWNED LIST', currentBoard.lists.find((list) => list.isOwner));
       setCurrentBoardOwnedList(currentBoard.lists.find((list) => list.isOwner));
     }
   }, [currentBoard])

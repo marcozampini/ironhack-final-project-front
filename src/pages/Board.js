@@ -1,31 +1,26 @@
-import { useState, useEffect, useCallback, useContext } from 'react'
-import axios from 'axios'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { BoardContext } from '../context/board.context'
-import NameSearchModal from '../components/names/NameSearchModal'
 import AvatarUsername from '../components/AvatarUsername'
-import './Boards.css'
-import { NameSearchContext } from '../context/nameSearch.context'
+import NameSearchModal from '../components/names/NameSearchModal'
+import { BoardContext } from '../context/board.context'
 import { CurrentBoardContext } from '../context/currentBoard.context'
-
-const API_URL = process.env.REACT_APP_API_URL
+import { NameSearchContext } from '../context/nameSearch.context'
+import './Boards.css'
 
 const Board = () => {
-  const {
-    currentBoard,
-    fetchBoard,
-  } = useContext(CurrentBoardContext)
-
-  const savedToken = localStorage.getItem('authToken')
+  const { currentBoard, fetchBoard } = useContext(CurrentBoardContext)
   const { deleteBoard, deleteList, deleteName } = useContext(BoardContext)
   const { resetSearch } = useContext(NameSearchContext)
+
+  const savedToken = localStorage.getItem('authToken')
   const navigate = useNavigate()
+
   const [modalVisible, setModalVisible] = useState(false)
   const { boardId } = useParams()
 
   const getBoard = useCallback(async () => {
     resetSearch()
-    await fetchBoard(boardId);
+    await fetchBoard(boardId)
   }, [boardId, savedToken])
 
   useEffect(() => {

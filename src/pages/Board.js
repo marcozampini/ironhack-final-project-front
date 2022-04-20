@@ -128,12 +128,11 @@ const Board = () => {
                       Delete list
                     </button>
                   )}
-                  <p>List id: {list._id}</p>
                   <ul>
                     {list.names.map((name) => {
                       return (
                         <li key={list._id + '--' + name._id}>
-                          {name.value} - {name._id} - w: {name.weight}{' '}
+                          {name.value} - w: {name.weight}{' '}
                           {list.isOwner && (
                             <button
                               onClick={(e) =>

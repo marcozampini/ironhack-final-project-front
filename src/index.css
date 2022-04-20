@@ -32,6 +32,9 @@ input[type='button'] {
   border: 1px solid lightgray;
   cursor: pointer;
 }
+ul {
+  list-style: none;
+}
 .undisplayed {
   display: none;
 }

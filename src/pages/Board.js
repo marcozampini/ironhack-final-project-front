@@ -77,16 +77,17 @@ const Board = () => {
         isVisible={modalVisible}
         toggleVisibility={toggleModalVisibility}
       />
-      <h1 className="board-name">
-        <span>{currentBoard.name}</span>
-        <AvatarUsername
-          avatarUrl={currentBoard.owner.avatarUrl}
-          username={currentBoard.owner.username}
-          textAfter={"'s board"}
-        />
-      </h1>
+
       {currentBoard && (
         <>
+          <h1 className="board-name">
+            <span>{currentBoard.name}</span>
+            <AvatarUsername
+              avatarUrl={currentBoard.owner.avatarUrl}
+              username={currentBoard.owner.username}
+              textAfter={"'s board"}
+            />
+          </h1>
           {currentBoard.isOwner ? (
             <>
               <form className="rename-board-form undisplayed">

@@ -5,6 +5,7 @@ import { BoardContext } from '../context/board.context'
 import NameSearchModal from '../components/layout/NameSearchModal'
 import AvatarUsername from '../components/AvatarUsername'
 import './Boards.css'
+import { NameSearchContext } from '../context/nameSearch.context'
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -15,6 +16,7 @@ const Board = () => {
   const [board, setBoard] = useState(null)
   const [modalVisible, setModalVisible] = useState(false)
   const { boardId } = useParams()
+  const { setCurrentBoard } = useContext(NameSearchContext)
 
   const getBoard = useCallback(async () => {
     try {
@@ -22,10 +24,12 @@ const Board = () => {
         headers: { Authorization: `Bearer ${savedToken}` },
       })
       setBoard(response.data)
+      // set nameSearchContext currentBoard so adding name from the search result is possible
+      setCurrentBoard(response.data)
     } catch (error) {
       console.error(error)
     }
-  }, [boardId, savedToken])
+  }, [boardId, savedToken, setCurrentBoard])
 
   useEffect(() => {
     getBoard()
@@ -81,7 +85,6 @@ const Board = () => {
   return (
     <>
       <NameSearchModal
-        boardId={boardId}
         isVisible={modalVisible}
         toggleVisibility={toggleModalVisibility}
       />
@@ -137,7 +140,7 @@ const Board = () => {
                   <ul>
                     {list.names.map((name) => {
                       return (
-                        <li key={name._id}>
+                         <li key={list._id + '--' + name._id}>
                           {name.value} - {name._id} - w: {name.weight}{' '}
                           {list.isOwner && (
                             <button
@@ -148,6 +151,7 @@ const Board = () => {
                               Delete
                             </button>
                           )}
+
                         </li>
                       )
                     })}

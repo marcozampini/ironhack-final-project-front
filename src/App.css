@@ -2,5 +2,31 @@
   display: flex;
 }
 .main {
+  width: 100%;
   padding: 1rem;
+  background-color: #fafafa;
+}
+.sidebar {
+  background-color: antiquewhite;
+  padding: 1rem;
+  min-height: 100vh;
+  min-width: 20rem;
+}
+.sidebar ul {
+  margin-bottom: 1rem;
+}
+.sidebar.close {
+  min-width: 5rem;
+}
+.sidebar.close li {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .App {
+    flex-direction: column;
+  }
+  .sidebar {
+    min-height: 0;
+  }
 }

@@ -2,9 +2,21 @@
 .lists {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 1rem;
 }
 .board,
 .list {
+  background-color: white;
+  border: 1px solid lightgray;
+  padding: 1rem;
   margin-right: 1rem;
   margin-bottom: 1rem;
+}
+.board-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.board-name .avatar-username {
+  font-size: 0.6em;
 }

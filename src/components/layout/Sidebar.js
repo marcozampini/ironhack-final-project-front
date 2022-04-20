@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../context/auth.context'
 import { BoardContext } from '../../context/board.context'
-import './Sidebar.css'
 import AvatarUsername from '../AvatarUsername'
 const APP_NAME = process.env.REACT_APP_NAME
 
@@ -53,15 +52,6 @@ const Sidebar = () => {
           </ul>
         </>
       )}
-      <h3>Inspiration</h3>
-      <ul>
-        <li>Popular names in Italy</li>
-        <li>Popular names in France</li>
-        <li>Popular names in England and Wales</li>
-        <li>Popular names in Scotland</li>
-        <li>Popular names in Northern Ireland</li>
-        <li>Popular names in Spain</li>
-      </ul>
       {isLoggedIn ? (
         <>
           <h3>

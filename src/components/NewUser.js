@@ -22,7 +22,7 @@ const NewUser = (props) => {
     try {
       await axios.post(
         `${API_URL}/boards/${props.boardId}/${userId}`,
-        { user: 'rex' },
+        {},
         {
           headers: { Authorization: `Bearer ${savedToken}` },
         }
@@ -44,7 +44,10 @@ const NewUser = (props) => {
       <ul>
         {users.map((user, index) => {
           return (
-            <li onClick={() => addUserToBoard(user.id)}>{user.username}</li>
+            <li>
+              {user.username}
+              <button onClick={() => addUserToBoard(user.id)}>Add</button>
+            </li>
           )
         })}
       </ul>

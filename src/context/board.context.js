@@ -56,11 +56,34 @@ function BoardProviderWrapper(props) {
       console.error(error)
     }
   }
+
+  async function addName(listId, nameId, weight) {
+    try {
+      const { status } = await axios.post(
+        `${API_URL}/lists/${listId}`,
+        {
+          name: nameId,
+          weight,
+        },
+        {
+          headers: { Authorization: `Bearer ${savedToken}` },
+        }
+      )
+      return status
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   async function deleteName(listId, nameId) {
     try {
-      await axios.delete(`${API_URL}/lists/${listId}/${nameId}`, {
-        headers: { Authorization: `Bearer ${savedToken}` },
-      })
+      const { status } = await axios.delete(
+        `${API_URL}/lists/${listId}/${nameId}`,
+        {
+          headers: { Authorization: `Bearer ${savedToken}` },
+        }
+      )
+      return status
     } catch (error) {
       console.error(error)
     }
@@ -73,6 +96,7 @@ function BoardProviderWrapper(props) {
         createBoard,
         deleteBoard,
         deleteList,
+        addName,
         deleteName,
       }}
     >

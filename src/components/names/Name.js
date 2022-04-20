@@ -1,28 +1,24 @@
-import axios from 'axios'
-const API_URL = process.env.REACT_APP_API_URL
-const savedToken = localStorage.getItem('authToken')
+import { httpStatus } from 'http-status'
+import { useContext, useState } from 'react'
+import { BoardContext } from '../../context/board.context'
 
 const Name = ({ data, list }) => {
-  async function addNameToList(name) {
-    console.log('ADDING NAME TO LIST')
+  const [isInList, setIsInList] = useState(
+    list?.names.some((item) => item.value === data.name.value)
+  )
+  const { addName, deleteName } = useContext(BoardContext)
 
-    // const [formData, setFormData] = useState({weight: 0});
+  async function handleAdd() {
+    const status = await addName(list._id, data.name, 42)
+    if (status === 200) {
+      setIsInList(true)
+    }
+  }
 
-    try {
-      const { status, data } = await axios.post(
-        `${API_URL}/lists/${list._id}`,
-        {
-          name: name._id,
-          // TODO remove test value for real one
-          weight: 42,
-        },
-        {
-          headers: { Authorization: `Bearer ${savedToken}` },
-        }
-      )
-      console.log('RESULT OF AXIOS', status, data)
-    } catch (error) {
-      console.error(error)
+  async function handleDelete() {
+    const status = await deleteName(list._id, data.name._id)
+    if (status === 204) {
+      setIsInList(false)
     }
   }
 
@@ -30,10 +26,13 @@ const Name = ({ data, list }) => {
     <>
       <div>
         {data.name.value}
-        {list?.names.some((item) => item.value === data.name.value) ? (
-          'already in list'
+        {isInList ? (
+          <button onClick={handleDelete}>
+            REMOVE
+          </button>
         ) : (
-          <button onClick={() => addNameToList(data.name)}>ADD</button>
+          // TODO - remove 42 test only
+          <button onClick={handleAdd}>ADD</button>
         )}
       </div>
     </>
@@ -42,6 +41,7 @@ const Name = ({ data, list }) => {
 
 export default Name
 
+// const [formData, setFormData] = useState({weight: 0});
 // <form onSubmit={handleSubmit}>
 //   <label htmlFor='q'>Name</label>
 //   <input

@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../context/auth.context'
 import { BoardContext } from '../../context/board.context'
-import './Sidebar.css'
 import AvatarUsername from '../AvatarUsername'
 const APP_NAME = process.env.REACT_APP_NAME
 

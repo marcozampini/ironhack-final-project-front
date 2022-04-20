@@ -3,7 +3,6 @@ import { CurrentBoardContext } from '../../context/currentBoard.context'
 import { NameSearchContext } from '../../context/nameSearch.context'
 import Name from '../names/Name'
 import './NameSearchModal.css'
-import '../layout/Sidebar.css'
 
 const NameSearchModal = ({ isVisible, toggleVisibility }) => {
   const { currentBoardOwnedList } = useContext(CurrentBoardContext)

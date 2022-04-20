@@ -1,11 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../context/auth.context'
 import { BoardContext } from '../../context/board.context'
 import './Sidebar.css'
+import AvatarUsername from '../AvatarUsername'
 const APP_NAME = process.env.REACT_APP_NAME
-const API_URL = process.env.REACT_APP_API_URL
 
 const Sidebar = () => {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext)
@@ -51,7 +50,6 @@ const Sidebar = () => {
             <li>
               <Link to="./boards/new">Create a new board</Link>
             </li>
-            <li>Pending invitations (1)</li>
           </ul>
         </>
       )}
@@ -66,7 +64,12 @@ const Sidebar = () => {
       </ul>
       {isLoggedIn ? (
         <>
-          <h3>{user.username}</h3>
+          <h3>
+            <AvatarUsername
+              avatarUrl={user.avatarUrl}
+              username={user.username}
+            />
+          </h3>
           <ul>
             <li>
               <button onClick={logOutUser}>Log out</button>

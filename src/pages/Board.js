@@ -2,6 +2,7 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AvatarUsername from '../components/AvatarUsername'
 import NameSearchModal from '../components/names/NameSearchModal'
+import NewUser from '../components/NewUser'
 import { BoardContext } from '../context/board.context'
 import { CurrentBoardContext } from '../context/currentBoard.context'
 import { NameSearchContext } from '../context/nameSearch.context'
@@ -86,6 +87,7 @@ const Board = () => {
                 <input type="submit" value="Save" onClick={handleRenameBoard} />
                 <input type="button" value="Cancel" onClick={hideRenameForm} />
               </form>
+              <NewUser />
               <button className="rename-button" onClick={showRenameForm}>
                 Rename board
               </button>
@@ -101,6 +103,7 @@ const Board = () => {
             username={currentBoard.owner.username}
           />
 
+
           <div className="lists">
             {currentBoard.lists.map((list) => {
               return (
@@ -112,6 +115,7 @@ const Board = () => {
                       username={list.owner.username}
                     />
                   </h2>
+
                   {list.isOwner && (
                     <button onClick={toggleModalVisibility}>Add name</button>
                   )}

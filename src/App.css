@@ -4,21 +4,31 @@
 .main {
   width: 100%;
   padding: 1rem;
-  background-color: #fafafa;
+  background-color: #ecb390;
 }
+/*giallo chiaro fcf8e8 */
+/*verde chiaro d4e2d4*/
+/*arancione chiaro ecb390*/
+/*arancione scuro df7861*/
 .sidebar {
-  background-color: antiquewhite;
+  background-color: #d4e2d4;
   padding: 1rem;
   min-height: 100vh;
-  min-width: 20rem;
+  white-space: nowrap;
+}
+.sidebar a {
+  color: #111;
 }
 .sidebar ul {
   margin-bottom: 1rem;
 }
 .sidebar.close {
-  min-width: 5rem;
+  width: 8rem;
+  text-align: center;
+  white-space: normal;
 }
-.sidebar.close li {
+.sidebar.close li,
+.sidebar.close .username {
   display: none;
 }
 
@@ -28,5 +38,8 @@
   }
   .sidebar {
     min-height: 0;
+  }
+  .sidebar.close {
+    width: 100%;
   }
 }

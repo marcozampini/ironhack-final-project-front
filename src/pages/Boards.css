@@ -1,13 +1,16 @@
 .boards,
 .lists {
   display: flex;
+  align-items: baseline;
   flex-wrap: wrap;
   margin-top: 1rem;
 }
 .board,
 .list {
-  background-color: white;
+  flex: 1;
+  background-color: #fcf8e8;
   border: 1px solid lightgray;
+  border-radius: 0.5rem;
   padding: 1rem;
   margin-right: 1rem;
   margin-bottom: 1rem;
@@ -16,7 +19,40 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 .board-name .avatar-username {
   font-size: 0.6em;
+}
+.list .name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 0.5rem;
+  margin-bottom: 0.2rem;
+  border: 1px solid #eee;
+  border-radius: 0.5rem;
+}
+
+.list .name button {
+  color: #ddd;
+  border: 1px solid white;
+}
+.list .name button:hover {
+  color: #333;
+  border: 1px solid #ccc;
+}
+.list .name .info-text {
+  display: none;
+}
+.list .name:hover .info-text {
+  display: inline;
+}
+
+@media (max-width: 600px) {
+  .board,
+  .list {
+    width: 100%;
+  }
 }

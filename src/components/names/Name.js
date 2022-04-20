@@ -10,7 +10,8 @@ const Name = ({ data, list }) => {
     currentBoardOwnedList?.names.some((item) => item.value === data.name.value)
   )
   const [errorFetch, setErrorFetch] = useState('')
-  const { addName, deleteName } = useContext(BoardContext)
+  const { addName, deleteName, capitalizeFirstLetter } =
+    useContext(BoardContext)
 
   async function handleAdd() {
     setErrorFetch('')
@@ -55,7 +56,7 @@ const Name = ({ data, list }) => {
   return (
     <>
       <div>
-        {data.name.value}
+        {capitalizeFirstLetter(data.name.value)}
         {isInList ? (
           <button onClick={handleDelete}>Remove</button>
         ) : (

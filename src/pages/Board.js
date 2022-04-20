@@ -10,7 +10,8 @@ import './Boards.css'
 
 const Board = () => {
   const { currentBoard, fetchBoard } = useContext(CurrentBoardContext)
-  const { deleteBoard, deleteList, deleteName } = useContext(BoardContext)
+  const { deleteBoard, deleteList, deleteName, capitalizeFirstLetter } =
+    useContext(BoardContext)
   const { resetSearch } = useContext(NameSearchContext)
 
   const savedToken = localStorage.getItem('authToken')
@@ -121,15 +122,16 @@ const Board = () => {
                   <ul>
                     {list.names.map((name) => {
                       return (
-                        <li key={list._id + '--' + name._id}>
-                          {name.value}
+                        <li className="name" key={list._id + '--' + name._id}>
+                          {capitalizeFirstLetter(name.value)}
                           {list.isOwner && (
                             <button
                               onClick={(e) =>
                                 handleDeleteName(list._id, name._id, e)
                               }
                             >
-                              Delete
+                              <i class="fa-solid fa-circle-minus"></i>{' '}
+                              <span class="info-text">Remove</span>
                             </button>
                           )}
                         </li>
@@ -137,7 +139,9 @@ const Board = () => {
                     })}
                   </ul>
                   {list.isOwner && (
-                    <button onClick={toggleModalVisibility}>Add name</button>
+                    <button onClick={toggleModalVisibility}>
+                      <i class="fa-solid fa-circle-plus"></i> Add name
+                    </button>
                   )}
                   {list.isOwner && !currentBoard.isOwner && (
                     <button
@@ -145,7 +149,7 @@ const Board = () => {
                         handleDeleteList(currentBoard._id, list.owner._id, e)
                       }
                     >
-                      Delete list
+                      <i class="fa-solid fa-trash-can"></i> Delete list
                     </button>
                   )}
                 </div>

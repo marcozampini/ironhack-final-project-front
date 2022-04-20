@@ -1,6 +1,14 @@
-# ironhack-final-project-front
+# Pick the one! - Front end
 
-Front end for Ironhack final project
+## About this project
+
+This is the final project of the Ironhack Bootcamp in Paris, Full-stack development class, February - April 2022.
+
+This project has been developed by:
+
+- Akanksha Singh Pradhan
+- Brian Valette
+- Marco Zampini
 
 ## Getting Started with Create React App
 

@@ -1,7 +1,3 @@
-.avatar-username {
-  display: flex;
-  align-items: center;
-}
 .avatar-username span {
   font-weight: 700;
 }
@@ -9,10 +5,9 @@
   margin-right: 0.2rem;
 }
 .avatar-username picture {
-  display: flex;
-  align-items: center;
 }
 .avatar-username picture img {
+  vertical-align: middle;
   width: 2rem;
   height: 2rem;
   border-radius: 1rem;

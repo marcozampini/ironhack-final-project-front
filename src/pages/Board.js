@@ -77,32 +77,33 @@ const Board = () => {
         isVisible={modalVisible}
         toggleVisibility={toggleModalVisibility}
       />
+      <h1 className="board-name">
+        <span>{currentBoard.name}</span>
+        <AvatarUsername
+          avatarUrl={currentBoard.owner.avatarUrl}
+          username={currentBoard.owner.username}
+          textAfter={"'s board"}
+        />
+      </h1>
       {currentBoard && (
         <>
           {currentBoard.isOwner ? (
             <>
-              <h1 className="board-name">{currentBoard.name}</h1>
               <form className="rename-board-form undisplayed">
                 <input type="text" value={currentBoard.name} />
                 <input type="submit" value="Save" onClick={handleRenameBoard} />
                 <input type="button" value="Cancel" onClick={hideRenameForm} />
               </form>
               <NewUser />
+              <button className="add-participant">Add participant</button>
               <button className="rename-button" onClick={showRenameForm}>
                 Rename board
               </button>
               <button onClick={handleDeleteBoard}>Delete board</button>
             </>
           ) : (
-            <>
-              <h1>{currentBoard.name}</h1>
-            </>
+            <></>
           )}
-          <AvatarUsername
-            avatarUrl={currentBoard.owner.avatarUrl}
-            username={currentBoard.owner.username}
-          />
-
 
           <div className="lists">
             {currentBoard.lists.map((list) => {
@@ -110,29 +111,17 @@ const Board = () => {
                 <div className="list" key={list._id}>
                   <h2>
                     <AvatarUsername
-                      textBefore={'List by'}
                       avatarUrl={list.owner.avatarUrl}
                       username={list.owner.username}
+                      textAfter={"'s list"}
                     />
                   </h2>
 
-                  {list.isOwner && (
-                    <button onClick={toggleModalVisibility}>Add name</button>
-                  )}
-                  {list.isOwner && !currentBoard.isOwner && (
-                    <button
-                      onClick={(e) =>
-                        handleDeleteList(currentBoard._id, list.owner._id, e)
-                      }
-                    >
-                      Delete list
-                    </button>
-                  )}
                   <ul>
                     {list.names.map((name) => {
                       return (
                         <li key={list._id + '--' + name._id}>
-                          {name.value} - w: {name.weight}{' '}
+                          {name.value}
                           {list.isOwner && (
                             <button
                               onClick={(e) =>
@@ -146,6 +135,18 @@ const Board = () => {
                       )
                     })}
                   </ul>
+                  {list.isOwner && (
+                    <button onClick={toggleModalVisibility}>Add name</button>
+                  )}
+                  {list.isOwner && !currentBoard.isOwner && (
+                    <button
+                      onClick={(e) =>
+                        handleDeleteList(currentBoard._id, list.owner._id, e)
+                      }
+                    >
+                      Delete list
+                    </button>
+                  )}
                 </div>
               )
             })}

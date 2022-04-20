@@ -53,15 +53,6 @@ const Sidebar = () => {
           </ul>
         </>
       )}
-      <h3>Inspiration</h3>
-      <ul>
-        <li>Popular names in Italy</li>
-        <li>Popular names in France</li>
-        <li>Popular names in England and Wales</li>
-        <li>Popular names in Scotland</li>
-        <li>Popular names in Northern Ireland</li>
-        <li>Popular names in Spain</li>
-      </ul>
       {isLoggedIn ? (
         <>
           <h3>

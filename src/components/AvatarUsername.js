@@ -11,6 +11,7 @@ const AvatarUsername = (props) => {
         <img src={props.avatarUrl} alt={props.username.charAt(0)} />
       </picture>
       <span className="username">{props.username}</span>
+      {props.textAfter && <span className="text-after">{props.textAfter}</span>}
     </span>
   )
 }

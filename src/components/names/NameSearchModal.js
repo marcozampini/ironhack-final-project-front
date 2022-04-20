@@ -6,7 +6,7 @@ import './NameSearchModal.css'
 import '../layout/Sidebar.css'
 
 const NameSearchModal = ({ isVisible, toggleVisibility }) => {
-  const {currentBoardOwnedList } = useContext(CurrentBoardContext);
+  const { currentBoardOwnedList } = useContext(CurrentBoardContext)
 
   const {
     formData,
@@ -21,7 +21,7 @@ const NameSearchModal = ({ isVisible, toggleVisibility }) => {
       {isVisible && (
         <div className="modal-container">
           <div className="modal-content">
-          {/* <div className="sidebar"> */}
+            {/* <div className="sidebar"> */}
             <form onSubmit={handleSubmit}>
               <label htmlFor="q">Name</label>
               <input
@@ -30,10 +30,10 @@ const NameSearchModal = ({ isVisible, toggleVisibility }) => {
                 value={formData.q}
                 onChange={handleChanges}
               />
-              <input type="submit" value="search" />
+              <input type="submit" value="Search" />
             </form>
             <button className="modalCloseButton" onClick={toggleVisibility}>
-              CLOSE
+              Close
             </button>
             <div className="searchResults">
               {(searchResults.length &&

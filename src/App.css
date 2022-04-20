@@ -2,5 +2,7 @@
   display: flex;
 }
 .main {
+  width: 100%;
   padding: 1rem;
+  background-color: #fafafa;
 }

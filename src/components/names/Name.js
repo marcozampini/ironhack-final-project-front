@@ -1,7 +1,7 @@
-import { httpStatus } from 'http-status'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { BoardContext } from '../../context/board.context'
 import { CurrentBoardContext } from '../../context/currentBoard.context'
+import './Name.css'
 
 const Name = ({ data, list }) => {
   const { currentBoard, currentBoardOwnedList, fetchBoard } =
@@ -9,35 +9,48 @@ const Name = ({ data, list }) => {
   const [isInList, setIsInList] = useState(
     currentBoardOwnedList?.names.some((item) => item.value === data.name.value)
   )
+  const [errorFetch, setErrorFetch] = useState('')
   const { addName, deleteName } = useContext(BoardContext)
 
   async function handleAdd() {
-    const status = await addName(list._id, data.name, 42)
-    if (status === 200) {
-      console.log('adding and fetching data for ', currentBoard._id)
-      await fetchBoard(currentBoard._id)
+    setErrorFetch('')
+    try {
+      const { status, data: body } = await addName(list._id, data.name, 42)
+      if (status === 200) {
+        await fetchBoard(currentBoard._id)
+      } else {
+        console.error(status, body)
+        setErrorFetch('Error: Could not add the name right now')
+      }
+    } catch (error) {
+      console.error(error)
+      setErrorFetch('Error: Could not add the name right now')
     }
-    setIsInList(
-      currentBoardOwnedList?.names.some(
-        (item) => item.value === data.name.value
-      )
-    )
   }
 
   async function handleDelete() {
-    const status = await deleteName(list._id, data.name._id)
-    if (status === 204) {
-      console.log('removing and fetching data for ', currentBoard._id)
-      await fetchBoard(currentBoard._id)
+    setErrorFetch('')
+    try {
+      const { status, data: body } = await deleteName(list._id, data.name._id)
+      if (status === 204) {
+        await fetchBoard(currentBoard._id)
+      } else {
+        console.error(status, body)
+        setErrorFetch('Error: Could not delete the name right now')
+      }
+    } catch (error) {
+      console.error(error)
+      setErrorFetch('Error: Could not delete the name right now')
     }
+  }
+
+  useEffect(() => {
     setIsInList(
       currentBoardOwnedList?.names.some(
         (item) => item.value === data.name.value
       )
     )
-  }
-
-
+  }, [currentBoardOwnedList])
 
   return (
     <>
@@ -46,9 +59,9 @@ const Name = ({ data, list }) => {
         {isInList ? (
           <button onClick={handleDelete}>REMOVE</button>
         ) : (
-          // TODO - remove 42 test only
           <button onClick={handleAdd}>ADD</button>
         )}
+        {errorFetch.length ? <p className='errorMessage'>{errorFetch}</p> : ''}
       </div>
     </>
   )

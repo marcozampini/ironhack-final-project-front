@@ -1,13 +1,37 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: 'Nunito';
+  src: url('/public/style/fonts/Nunito-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: 'Nunito';
+  src: url('/public/style/fonts/Nunito-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body,
+input,
+select,
+button,
+textarea {
+  font-family: 'Nunito', sans-serif !important;
+  font-weight: 300;
+  color: #333;
+}
+button,
+input[type='submit'],
+input[type='button'] {
+  background: none;
+  padding: 0.1rem 0.3rem;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+.undisplayed {
+  display: none;
 }

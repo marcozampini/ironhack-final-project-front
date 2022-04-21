@@ -41,6 +41,18 @@ function BoardProviderWrapper(props) {
     }
   }
 
+  async function renameBoard(formData, boardId) {
+    const savedToken = localStorage.getItem('authToken')
+    try {
+      await axios.patch(`${API_URL}/boards/${boardId}`, formData, {
+        headers: { Authorization: `Bearer ${savedToken}` },
+      })
+      getAllBoards()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   async function deleteBoard(boardId) {
     const savedToken = localStorage.getItem('authToken')
     try {
@@ -119,6 +131,7 @@ function BoardProviderWrapper(props) {
       value={{
         boards,
         createBoard,
+        renameBoard,
         deleteBoard,
         deleteList,
         addName,

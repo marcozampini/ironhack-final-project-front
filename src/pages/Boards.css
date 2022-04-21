@@ -9,11 +9,15 @@
 .list {
   flex: 1;
   background-color: #fcf8e8;
-  border: 1px solid lightgray;
+  border: 1px solid #ccc;
   border-radius: 0.5rem;
   padding: 1rem;
   margin-right: 1rem;
   margin-bottom: 1rem;
+}
+.board h2,
+.list h2 {
+  white-space: nowrap;
 }
 .board-name {
   display: flex;
@@ -49,7 +53,21 @@
 .list .name:hover .info-text {
   display: inline;
 }
-
+.new-user-form {
+  position: absolute;
+  min-height: 20rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  background-color: white;
+}
+.new-user-form ul {
+  margin-top: 1rem;
+}
+.new-user-form .username-item {
+  display: flex;
+  justify-content: space-between;
+}
 @media (max-width: 600px) {
   .board,
   .list {

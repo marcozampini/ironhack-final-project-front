@@ -18,6 +18,8 @@ const Board = () => {
   const navigate = useNavigate()
 
   const [modalVisible, setModalVisible] = useState(false)
+  const [addFormVisible, setAddFormVisible] = useState(false)
+
   const { boardId } = useParams()
 
   const getBoard = useCallback(async () => {
@@ -76,6 +78,10 @@ const Board = () => {
     setModalVisible(!modalVisible)
   }
 
+  const toggleAddFormVisibility = () => {
+    setAddFormVisible(!addFormVisible)
+  }
+
   return (
     <>
       <NameSearchModal
@@ -100,12 +106,21 @@ const Board = () => {
                 <input type="submit" value="Save" onClick={handleRenameBoard} />
                 <input type="button" value="Cancel" onClick={hideRenameForm} />
               </form>
-              <NewUser />
-              <button className="add-participant">Add participant</button>
+
+              <button
+                className="add-participant"
+                onClick={toggleAddFormVisibility}
+              >
+                Add participant
+              </button>
               <button className="rename-button" onClick={showRenameForm}>
                 Rename board
               </button>
               <button onClick={handleDeleteBoard}>Delete board</button>
+              <NewUser
+                isVisible={addFormVisible}
+                toggleVisibility={toggleAddFormVisibility}
+              />
             </>
           ) : (
             <></>
@@ -134,8 +149,8 @@ const Board = () => {
                                 handleDeleteName(list._id, name._id, e)
                               }
                             >
-                              <i class="fa-solid fa-circle-minus"></i>{' '}
-                              <span class="info-text">Remove</span>
+                              <i className="fa-solid fa-circle-minus"></i>{' '}
+                              <span className="info-text">Remove</span>
                             </button>
                           )}
                         </li>
@@ -144,7 +159,7 @@ const Board = () => {
                   </ul>
                   {list.isOwner && (
                     <button onClick={toggleModalVisibility}>
-                      <i class="fa-solid fa-circle-plus"></i> Add name
+                      <i className="fa-solid fa-circle-plus"></i> Add name
                     </button>
                   )}
                   {((list.isOwner && !currentBoard.isOwner) ||
@@ -159,7 +174,7 @@ const Board = () => {
                         )
                       }
                     >
-                      <i class="fa-solid fa-trash-can"></i> Delete list
+                      <i className="fa-solid fa-trash-can"></i> Delete list
                     </button>
                   )}
                 </div>

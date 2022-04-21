@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage'
 import Boards from './pages/Boards'
 import Board from './pages/Board'
 import NewBoard from './pages/NewBoard'
+import NotFound from './pages/NotFound'
 
 function App() {
   return (
@@ -56,6 +57,12 @@ function App() {
               <IsPrivate>
                 <Board />
               </IsPrivate>
+            }
+          />
+          <Route
+            path="/*"
+            element={
+              <NotFound error={404}/>
             }
           />
         </Routes>

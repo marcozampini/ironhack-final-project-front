@@ -15,9 +15,7 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
   const [isInList, setIsInList] = useState(
     currentBoardOwnedList?.names.some((item) => item.value === name)
   )
-  const [rating, setRating] = useState(
-    weight > 3 ? 3 : weight
-  )
+  const [rating, setRating] = useState(weight > 3 ? 3 : weight)
   const [errorFetch, setErrorFetch] = useState('')
   const { addName, deleteName, capitalizeFirstLetter } =
     useContext(BoardContext)
@@ -65,9 +63,7 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
 
   useEffect(() => {
     setIsInList(
-      currentBoardOwnedList?.names.some(
-        (item) => item.value === name
-      )
+      currentBoardOwnedList?.names.some((item) => item.value === name)
     )
   }, [currentBoardOwnedList])
 
@@ -80,17 +76,17 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
             <div className="resultAction">
               {rating === -1 ? (
                 <DislikeTwoTone
-                disabled={true}
-                twoToneColor={rating === -1 ? '#ff3d3d' : '#cccccc'}
+                  disabled={true}
+                  twoToneColor={rating === -1 ? '#ff3d3d' : '#cccccc'}
                 />
-                ) : (
-                  <Rate
+              ) : (
+                <Rate
                   disabled={true}
                   allowClear={true}
                   value={rating === -1 ? 0 : rating}
                   count={3}
-                  />
-                  )}
+                />
+              )}
             </div>
           </div>
         </>
@@ -98,7 +94,7 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
         <div className="resultItem">
           <div>{capitalizeFirstLetter(name)}</div>
           {isInList ? (
-            <div className="resultAction">
+            <div className="resultAction name">
               {rating === -1 ? (
                 <DislikeTwoTone
                   disabled={true}
@@ -113,10 +109,13 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
                   count={3}
                 />
               )}
-              <button onClick={handleDelete}>Remove</button>
+              <button onClick={handleDelete}>
+                <i className="fa-solid fa-circle-minus"></i>{' '}
+                <span className="info-text">Remove</span>
+              </button>
             </div>
           ) : (
-            <div className="resultAction">
+            <div className="resultAction name">
               <DislikeTwoTone
                 twoToneColor={rating === -1 ? '#ff3d3d' : '#cccccc'}
                 onClick={() =>
@@ -130,7 +129,10 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
                 count={3}
                 onChange={handleRateChange}
               />
-              <button onClick={handleAdd}>Add</button>
+              <button onClick={handleAdd}>
+                <i className="fa-solid fa-circle-plus"></i>{' '}
+                <span className="info-text">Add</span>
+              </button>
             </div>
           )}
 

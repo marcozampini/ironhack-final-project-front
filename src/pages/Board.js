@@ -132,7 +132,7 @@ const Board = () => {
                       })
                       .map((name) => {
                         return (
-                          <>
+                          <li className='name' key={list._id + '--' + name._id}>
                             <Name
                               key={list._id + '--' + name._id}
                               weight={name.weight}
@@ -141,7 +141,7 @@ const Board = () => {
                               displayMode={list.isOwner === false}
                               list={list}
                             />
-                          </>
+                          </li>
                         )
                       })}
                   </ul>

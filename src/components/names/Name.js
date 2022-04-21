@@ -94,7 +94,7 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
         <div className="resultItem">
           <div>{capitalizeFirstLetter(name)}</div>
           {isInList ? (
-            <div className="resultAction name">
+            <div className="resultAction">
               {rating === -1 ? (
                 <DislikeTwoTone
                   disabled={true}

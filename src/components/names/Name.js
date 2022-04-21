@@ -2,13 +2,20 @@ import { useContext, useEffect, useState } from 'react'
 import { BoardContext } from '../../context/board.context'
 import { CurrentBoardContext } from '../../context/currentBoard.context'
 import './Name.css'
+import { Rate } from 'antd'
+import { DislikeTwoTone, StarFilled } from '@ant-design/icons'
 
-const Name = ({ data, list }) => {
+const customIconsDislike = {
+  1: <DislikeTwoTone />,
+}
+
+const Name = ({ data, alwaysDisplayWeight, list }) => {
   const { currentBoard, currentBoardOwnedList, fetchBoard } =
     useContext(CurrentBoardContext)
   const [isInList, setIsInList] = useState(
     currentBoardOwnedList?.names.some((item) => item.value === data.name.value)
   )
+  const [rating, setRating] = useState(data.weight)
   const [errorFetch, setErrorFetch] = useState('')
   const { addName, deleteName } = useContext(BoardContext)
 
@@ -44,6 +51,16 @@ const Name = ({ data, list }) => {
     }
   }
 
+  /**
+   * This function set name rating: -1 is a name they wish would not be given
+      and 0 ~ 2 is a range for positive appreciation
+   * @param {value} value rate given by user
+   */
+  function handleRateChange(value) {
+    setRating(value)
+    console.log('vhange', value)
+  }
+
   useEffect(() => {
     setIsInList(
       currentBoardOwnedList?.names.some(
@@ -59,25 +76,32 @@ const Name = ({ data, list }) => {
         {isInList ? (
           <button onClick={handleDelete}>Remove</button>
         ) : (
-          <button onClick={handleAdd}>Add</button>
+          <div className="resultAction">
+            <DislikeTwoTone
+              twoToneColor={rating === -1 ? '#ff3d3d' : '#cccccc'}
+              onClick={() =>
+                rating === 0 ? handleRateChange(1) : handleRateChange(-1)
+              }
+            />
+            <Rate
+              allowClear={true}
+              value={rating === -1 ? 0 : rating}
+              defaultValue={2}
+              count={3}
+              onChange={handleRateChange}
+            />
+            <button onClick={handleAdd}>Add</button>
+          </div>
         )}
-        {errorFetch.length ? <p className="errorMessage">{errorFetch}</p> : ''}
+
+        {errorFetch.length !== 0 && (
+          <div>
+            <p className="errorMessage">{errorFetch}</p>
+          </div>
+        )}
       </div>
     </>
   )
 }
 
 export default Name
-
-// const [formData, setFormData] = useState({weight: 0});
-// <form onSubmit={handleSubmit}>
-//   <label htmlFor='q'>Name</label>
-//   <input
-//     id='q'
-//     type='number'
-//     value={formData.q}
-//     onChange={handleChanges}
-//   />
-//   <input type='submit' value='search' />
-//   <button onClick={() => addNameToList(data.name)}>ADD</button>
-// </form>

@@ -26,7 +26,7 @@ function LoginPage(props) {
     axios
       .post(`${API_URL}/auth/login`, requestBody)
       .then((response) => {
-        //console.log('JWT RETURNED', response.data)
+        // console.log('JWT RETURNED', response.data.errorMessage)
 
         storeToken(response.data.authToken)
         authenticateUser()
@@ -34,7 +34,7 @@ function LoginPage(props) {
         navigate('/')
       })
       .catch((error) => {
-        const errorDescription = error.response.data.message
+        const errorDescription = error.response.data.errorMessage
         setErrorMessage(errorDescription)
       })
   }

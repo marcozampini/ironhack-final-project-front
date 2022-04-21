@@ -71,10 +71,26 @@ const Name = ({ data, alwaysDisplayWeight, list }) => {
 
   return (
     <>
-      <div>
-        {data.name.value}
+      <div className="resultItem">
+        <div>{data.name.value}</div>
         {isInList ? (
-          <button onClick={handleDelete}>Remove</button>
+            <div className="resultAction">
+              { rating === -1 ? (
+                <DislikeTwoTone
+                  disabled={true}
+                  twoToneColor={rating === -1 ? '#ff3d3d' : '#cccccc'}
+                />
+              ) : (
+                <Rate
+                  disabled={true}
+                  allowClear={true}
+                  value={rating === -1 ? 0 : rating}
+                  defaultValue={2}
+                  count={3}
+                />
+              )}
+            <button onClick={handleDelete}>Remove</button>
+            </div>
         ) : (
           <div className="resultAction">
             <DislikeTwoTone

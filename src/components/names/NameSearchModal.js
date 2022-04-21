@@ -86,6 +86,7 @@ const NameSearchModal = ({ isVisible, toggleVisibility }) => {
                   .map((item) => (
                     <Name
                         key={item._id}
+                        alwaysDisplayWeight={true}
                         data={item}
                         list={currentBoardOwnedList}
                       />

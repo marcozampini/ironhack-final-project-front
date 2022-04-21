@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AvatarUsername from '../components/AvatarUsername'
 import NameSearchModal from '../components/names/NameSearchModal'
-import NewUser from '../components/NewUser'
+import NewParticipantForm from '../components/NewParticipantForm'
 import { BoardContext } from '../context/board.context'
 import { CurrentBoardContext } from '../context/currentBoard.context'
 import { NameSearchContext } from '../context/nameSearch.context'
@@ -117,7 +117,7 @@ const Board = () => {
                 Rename board
               </button>
               <button onClick={handleDeleteBoard}>Delete board</button>
-              <NewUser
+              <NewParticipantForm
                 isVisible={addFormVisible}
                 toggleVisibility={toggleAddFormVisibility}
               />

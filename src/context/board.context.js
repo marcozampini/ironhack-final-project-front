@@ -1,16 +1,17 @@
-import { useState, useEffect, createContext } from 'react'
+import { useState, useEffect, createContext, useContext } from 'react'
 import axios from 'axios'
+import { AuthContext } from '../context/auth.context'
 const API_URL = process.env.REACT_APP_API_URL
 
 const BoardContext = createContext()
 
-const savedToken = localStorage.getItem('authToken')
-
 function BoardProviderWrapper(props) {
   const [boards, setBoards] = useState([])
+  const { isLoggedIn, user } = useContext(AuthContext)
 
   const getAllBoards = async () => {
     try {
+      const savedToken = localStorage.getItem('authToken')
       const response = await axios.get(`${API_URL}/boards`, {
         headers: { Authorization: `Bearer ${savedToken}` },
       })
@@ -21,10 +22,15 @@ function BoardProviderWrapper(props) {
   }
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      setBoards([])
+      return
+    }
     getAllBoards()
-  }, [])
+  }, [user, isLoggedIn])
 
   async function createBoard(formData) {
+    const savedToken = localStorage.getItem('authToken')
     try {
       await axios.post(`${API_URL}/boards`, formData, {
         headers: { Authorization: `Bearer ${savedToken}` },
@@ -36,6 +42,7 @@ function BoardProviderWrapper(props) {
   }
 
   async function deleteBoard(boardId) {
+    const savedToken = localStorage.getItem('authToken')
     try {
       await axios.delete(`${API_URL}/boards/${boardId}`, {
         headers: { Authorization: `Bearer ${savedToken}` },
@@ -47,6 +54,7 @@ function BoardProviderWrapper(props) {
   }
 
   async function deleteList(boardId, userId) {
+    const savedToken = localStorage.getItem('authToken')
     try {
       await axios.delete(`${API_URL}/boards/${boardId}/${userId}`, {
         headers: { Authorization: `Bearer ${savedToken}` },
@@ -58,6 +66,7 @@ function BoardProviderWrapper(props) {
   }
 
   async function addName(listId, nameId, weight) {
+    const savedToken = localStorage.getItem('authToken')
     try {
       const response = await axios.post(
         `${API_URL}/lists/${listId}`,
@@ -76,6 +85,7 @@ function BoardProviderWrapper(props) {
   }
 
   async function deleteName(listId, nameId) {
+    const savedToken = localStorage.getItem('authToken')
     try {
       const response = await axios.delete(
         `${API_URL}/lists/${listId}/${nameId}`,

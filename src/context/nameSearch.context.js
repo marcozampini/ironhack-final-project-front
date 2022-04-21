@@ -1,17 +1,17 @@
 import axios from 'axios'
-import { createContext, useState } from 'react'
+import { createContext, useCallback, useState } from 'react'
 const API_URL = process.env.REACT_APP_API_URL
 
 const NameSearchContext = createContext()
 
-const savedToken = localStorage.getItem('authToken')
+
+const defaultFormData = {
+  q: '',
+  minlen: undefined,
+  maxlen: undefined,
+}
 
 function NameSearchProviderWrapper(props) {
-  const defaultFormData = {
-    q: '',
-    minlen: undefined,
-    maxlen: undefined
-  }
   const [searchResults, setSearchResults] = useState([])
   const [isRequestSent, setIsRequestSent] = useState(false)
   const [formData, setFormData] = useState(defaultFormData)
@@ -20,7 +20,7 @@ function NameSearchProviderWrapper(props) {
     // do not navigate the browser on form submit
     event.preventDefault()
     try {
-      console.log('sending ->', formData);
+      const savedToken = localStorage.getItem('authToken')
       const { data } = await axios.get(`${API_URL}/names`, {
         params: formData,
         headers: { Authorization: `Bearer ${savedToken}` },
@@ -28,7 +28,7 @@ function NameSearchProviderWrapper(props) {
       setIsRequestSent(true)
       setSearchResults(data)
     } catch (error) {
-      if (error.response.status != 400) {
+      if (error.response.status !== 400) {
         console.error(error)
       }
     }
@@ -36,22 +36,20 @@ function NameSearchProviderWrapper(props) {
 
   function handleNameLenChange(minlen, maxlen) {
     const newFormData = { ...formData, minlen, maxlen }
-    console.log('update len, new data', newFormData);
     setFormData(newFormData)
   }
 
   function handleQueryChange(event) {
     const { value } = event.target
     const newFormData = { ...formData, q: value }
-    console.log('update query, new data', newFormData);
     setFormData(newFormData)
   }
 
-  function resetSearch() {
+  const resetSearch = useCallback(() => {
     setFormData(defaultFormData)
     setSearchResults([])
     setIsRequestSent(false)
-  }
+  }, [])
 
   return (
     <NameSearchContext.Provider

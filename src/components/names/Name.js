@@ -5,10 +5,6 @@ import { BoardContext } from '../../context/board.context'
 import { CurrentBoardContext } from '../../context/currentBoard.context'
 import './Name.css'
 
-const customIconsDislike = {
-  1: <DislikeTwoTone />,
-}
-
 const Name = ({ nameId, name, weight, displayMode, list }) => {
   const { currentBoard, currentBoardOwnedList, fetchBoard } =
     useContext(CurrentBoardContext)
@@ -65,7 +61,7 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
     setIsInList(
       currentBoardOwnedList?.names.some((item) => item.value === name)
     )
-  }, [currentBoardOwnedList])
+  }, [currentBoardOwnedList, name])
 
   return (
     <>

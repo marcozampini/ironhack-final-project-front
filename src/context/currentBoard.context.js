@@ -5,31 +5,32 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const CurrentBoardContext = createContext()
 
-
 function CurrentBoardProviderWrapper(props) {
   const [currentBoard, setCurrentBoard] = useState(null)
   const [currentBoardOwnedList, setCurrentBoardOwnedList] = useState(null)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-
-  const fetchBoard = useCallback(async (id) => {
-    try {
-      if (id) {
-        const savedToken = localStorage.getItem('authToken')
-        const response = await axios.get(`${API_URL}/boards/${id}`, {
-          headers: { Authorization: `Bearer ${savedToken}` },
-        })
-        setCurrentBoard(response.data)
+  const fetchBoard = useCallback(
+    async (id) => {
+      try {
+        if (id) {
+          const savedToken = localStorage.getItem('authToken')
+          const response = await axios.get(`${API_URL}/boards/${id}`, {
+            headers: { Authorization: `Bearer ${savedToken}` },
+          })
+          setCurrentBoard(response.data)
+        }
+      } catch (error) {
+        console.error(error)
+        navigate('/boards')
       }
-    } catch (error) {
-      console.error(error)
-      navigate('/boards')
-    }
-  }, [])
+    },
+    [navigate]
+  )
 
   useEffect(() => {
     if (currentBoard?.lists) {
-      setCurrentBoardOwnedList(currentBoard.lists.find((list) => list.isOwner));
+      setCurrentBoardOwnedList(currentBoard.lists.find((list) => list.isOwner))
     }
   }, [currentBoard])
 
@@ -40,7 +41,7 @@ function CurrentBoardProviderWrapper(props) {
         setCurrentBoard,
         currentBoardOwnedList,
         setCurrentBoardOwnedList,
-        fetchBoard
+        fetchBoard,
       }}
     >
       {props.children}

@@ -80,29 +80,28 @@ const NameSearchModal = ({ isVisible, toggleVisibility }) => {
               Close
             </button>
             <div className="searchResults">
-              <li className="list">
+              <ul className="list">
                 {(searchResults.length &&
                   searchResults
                     .sort((a, b) => a.name.value.length - b.name.value.length)
                     .map((item) => {
                       console.log('ITEM', item)
                       return (
-                        <ul>
+                        <li key={item._id}>
                           <Name
-                            key={item._id}
                             name={item.name.value}
                             nameId={item._id}
                             weight={item?.weight}
                             list={currentBoardOwnedList}
                           />
-                        </ul>
+                        </li>
                       )
                     })) || (
                   <div className="resultItem">
                     {isRequestSent && 'No results...'}
                   </div>
                 )}
-              </li>
+              </ul>
             </div>
           </div>
         </div>

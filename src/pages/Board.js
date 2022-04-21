@@ -1,6 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AvatarUsername from '../components/AvatarUsername'
+import Name from '../components/names/Name'
 import NameSearchModal from '../components/names/NameSearchModal'
 import NewUser from '../components/NewUser'
 import { BoardContext } from '../context/board.context'
@@ -91,7 +92,11 @@ const Board = () => {
           {currentBoard.isOwner ? (
             <>
               <form className="rename-board-form undisplayed">
-                <input type="text" onChange={() => {}} value={currentBoard.name} />
+                <input
+                  type="text"
+                  onChange={() => {}}
+                  value={currentBoard.name}
+                />
                 <input type="submit" value="Save" onClick={handleRenameBoard} />
                 <input type="button" value="Cancel" onClick={hideRenameForm} />
               </form>
@@ -119,22 +124,28 @@ const Board = () => {
                   </h2>
 
                   <ul>
-                    {list.names.map((name) => {
-                      return (
-                        <li key={list._id + '--' + name._id}>
-                          {name.value}
-                          {list.isOwner && (
-                            <button
-                              onClick={(e) =>
-                                handleDeleteName(list._id, name._id, e)
-                              }
-                            >
-                              Delete
-                            </button>
-                          )}
-                        </li>
-                      )
-                    })}
+                    {list.names
+                      .sort((a, b) => {
+                        if (b.weight === a.weight) {
+                          return a.value.localeCompare(b.value)
+                        } else {
+                          return b.weight - a.weight
+                        }
+                      })
+                      .map((name) => {
+                        return (
+                          <>
+                            <Name
+                              key={list._id + '--' + name._id}
+                              weight={name.weight}
+                              name={name.value}
+                              nameId={name._id}
+                              displayMode={list.isOwner === false}
+                              list={list}
+                            />
+                          </>
+                        )
+                      })}
                   </ul>
                   {list.isOwner && (
                     <button onClick={toggleModalVisibility}>Add name</button>

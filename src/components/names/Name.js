@@ -1,28 +1,30 @@
+import { DislikeTwoTone } from '@ant-design/icons'
+import { Rate } from 'antd'
 import { useContext, useEffect, useState } from 'react'
 import { BoardContext } from '../../context/board.context'
 import { CurrentBoardContext } from '../../context/currentBoard.context'
 import './Name.css'
-import { Rate } from 'antd'
-import { DislikeTwoTone, StarFilled } from '@ant-design/icons'
 
 const customIconsDislike = {
   1: <DislikeTwoTone />,
 }
 
-const Name = ({ data, alwaysDisplayWeight, list }) => {
+const Name = ({ nameId, name, weight, displayMode, list }) => {
   const { currentBoard, currentBoardOwnedList, fetchBoard } =
     useContext(CurrentBoardContext)
   const [isInList, setIsInList] = useState(
-    currentBoardOwnedList?.names.some((item) => item.value === data.name.value)
+    currentBoardOwnedList?.names.some((item) => item.value === name)
   )
-  const [rating, setRating] = useState(data.weight)
+  const [rating, setRating] = useState(
+    weight > 3 ? 3 : weight
+  )
   const [errorFetch, setErrorFetch] = useState('')
   const { addName, deleteName } = useContext(BoardContext)
 
   async function handleAdd() {
     setErrorFetch('')
     try {
-      const { status, data: body } = await addName(list._id, data.name, 42)
+      const { status, data: body } = await addName(list._id, nameId, rating)
       if (status === 200) {
         await fetchBoard(currentBoard._id)
       } else {
@@ -38,7 +40,7 @@ const Name = ({ data, alwaysDisplayWeight, list }) => {
   async function handleDelete() {
     setErrorFetch('')
     try {
-      const { status, data: body } = await deleteName(list._id, data.name._id)
+      const { status, data: body } = await deleteName(list._id, nameId)
       if (status === 204) {
         await fetchBoard(currentBoard._id)
       } else {
@@ -58,24 +60,45 @@ const Name = ({ data, alwaysDisplayWeight, list }) => {
    */
   function handleRateChange(value) {
     setRating(value)
-    console.log('vhange', value)
   }
 
   useEffect(() => {
     setIsInList(
       currentBoardOwnedList?.names.some(
-        (item) => item.value === data.name.value
+        (item) => item.value === name
       )
     )
   }, [currentBoardOwnedList])
 
   return (
     <>
-      <div className="resultItem">
-        <div>{data.name.value}</div>
-        {isInList ? (
+      {displayMode ? (
+        <>
+          <div className="resultItem">
+            <div>{name}</div>
             <div className="resultAction">
-              { rating === -1 ? (
+              {rating === -1 ? (
+                <DislikeTwoTone
+                disabled={true}
+                twoToneColor={rating === -1 ? '#ff3d3d' : '#cccccc'}
+                />
+                ) : (
+                  <Rate
+                  disabled={true}
+                  allowClear={true}
+                  value={rating === -1 ? 0 : rating}
+                  count={3}
+                  />
+                  )}
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="resultItem">
+          <div>{name}</div>
+          {isInList ? (
+            <div className="resultAction">
+              {rating === -1 ? (
                 <DislikeTwoTone
                   disabled={true}
                   twoToneColor={rating === -1 ? '#ff3d3d' : '#cccccc'}
@@ -89,33 +112,34 @@ const Name = ({ data, alwaysDisplayWeight, list }) => {
                   count={3}
                 />
               )}
-            <button onClick={handleDelete}>Remove</button>
+              <button onClick={handleDelete}>Remove</button>
             </div>
-        ) : (
-          <div className="resultAction">
-            <DislikeTwoTone
-              twoToneColor={rating === -1 ? '#ff3d3d' : '#cccccc'}
-              onClick={() =>
-                rating === 0 ? handleRateChange(1) : handleRateChange(-1)
-              }
-            />
-            <Rate
-              allowClear={true}
-              value={rating === -1 ? 0 : rating}
-              defaultValue={2}
-              count={3}
-              onChange={handleRateChange}
-            />
-            <button onClick={handleAdd}>Add</button>
-          </div>
-        )}
+          ) : (
+            <div className="resultAction">
+              <DislikeTwoTone
+                twoToneColor={rating === -1 ? '#ff3d3d' : '#cccccc'}
+                onClick={() =>
+                  rating === 0 ? handleRateChange(1) : handleRateChange(-1)
+                }
+              />
+              <Rate
+                allowClear={true}
+                value={rating === -1 ? 0 : rating}
+                defaultValue={2}
+                count={3}
+                onChange={handleRateChange}
+              />
+              <button onClick={handleAdd}>Add</button>
+            </div>
+          )}
 
-        {errorFetch.length !== 0 && (
-          <div>
-            <p className="errorMessage">{errorFetch}</p>
-          </div>
-        )}
-      </div>
+          {errorFetch.length !== 0 && (
+            <div>
+              <p className="errorMessage">{errorFetch}</p>
+            </div>
+          )}
+        </div>
+      )}
     </>
   )
 }

@@ -1,5 +1,6 @@
-import { useState, useEffect, createContext } from 'react'
+import { useState, useEffect, createContext, useContext } from 'react'
 import axios from 'axios'
+import { AuthContext } from './auth.context'
 const API_URL = process.env.REACT_APP_API_URL
 
 const BoardContext = createContext()

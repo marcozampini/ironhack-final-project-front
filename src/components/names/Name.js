@@ -1,8 +1,10 @@
 import { DislikeTwoTone } from '@ant-design/icons'
 import { Rate } from 'antd'
 import { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { BoardContext } from '../../context/board.context'
 import { CurrentBoardContext } from '../../context/currentBoard.context'
+import capitalizeFirstLetter from '../../utils/capitalizeFirstLetter'
 import './Name.css'
 
 const Name = ({ nameId, name, weight, displayMode, list }) => {
@@ -13,8 +15,7 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
   )
   const [rating, setRating] = useState(weight > 3 ? 3 : weight)
   const [errorFetch, setErrorFetch] = useState('')
-  const { addName, deleteName, capitalizeFirstLetter } =
-    useContext(BoardContext)
+  const { addName, deleteName } = useContext(BoardContext)
 
   async function handleAdd() {
     setErrorFetch('')
@@ -68,7 +69,9 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
       {displayMode ? (
         <>
           <div className="resultItem">
-            <div>{capitalizeFirstLetter(name)}</div>
+            <div>
+              <Link to={'/names/' + nameId}>{capitalizeFirstLetter(name)}</Link>
+            </div>
             <div className="resultAction">
               {rating === -1 ? (
                 <DislikeTwoTone
@@ -88,7 +91,9 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
         </>
       ) : (
         <div className="resultItem">
-          <div>{capitalizeFirstLetter(name)}</div>
+          <div>
+            <Link to={'/names/' + nameId}>{capitalizeFirstLetter(name)}</Link>
+          </div>
           {isInList ? (
             <div className="resultAction">
               {rating === -1 ? (

@@ -40,9 +40,8 @@ function LoginPage(props) {
   }
 
   return (
-    <div className="LoginPage">
-      <h1>Login</h1>
-
+    <>
+      <h1>Log in</h1>
       <form onSubmit={handleLoginSubmit}>
         <label>Email:</label>
         <input type="email" name="email" value={email} onChange={handleEmail} />
@@ -62,7 +61,7 @@ function LoginPage(props) {
 
       <p>Don't you have an account?</p>
       <Link to={'/signup'}>Sign up</Link>
-    </div>
+    </>
   )
 }
 

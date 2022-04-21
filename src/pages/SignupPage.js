@@ -35,9 +35,8 @@ function SignupPage(props) {
   }
 
   return (
-    <div className="SignupPage">
-      <h1>Sign Up</h1>
-
+    <>
+      <h1>Sign up</h1>
       <form onSubmit={handleSignupSubmit}>
         <label>Email:</label>
         <input type="email" name="email" value={email} onChange={handleEmail} />
@@ -64,7 +63,7 @@ function SignupPage(props) {
 
       <p>Already have an account?</p>
       <Link to={'/login'}>Log in</Link>
-    </div>
+    </>
   )
 }
 

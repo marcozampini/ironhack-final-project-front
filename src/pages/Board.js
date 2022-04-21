@@ -2,6 +2,7 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AvatarUsername from '../components/AvatarUsername'
 import NameSearchModal from '../components/names/NameSearchModal'
+import NewBoardNameForm from '../components/NewBoardNameForm'
 import NewParticipantForm from '../components/NewParticipantForm'
 import { BoardContext } from '../context/board.context'
 import { CurrentBoardContext } from '../context/currentBoard.context'
@@ -19,6 +20,7 @@ const Board = () => {
 
   const [modalVisible, setModalVisible] = useState(false)
   const [addFormVisible, setAddFormVisible] = useState(false)
+  const [renameFormVisible, setRenameFormVisible] = useState(false)
 
   const { boardId } = useParams()
 
@@ -31,21 +33,6 @@ const Board = () => {
     getBoard()
   }, [getBoard])
 
-  const showRenameForm = (event) => {
-    document.querySelector('.board-name').classList.add('undisplayed')
-    document.querySelector('.rename-board-form').classList.remove('undisplayed')
-    document.querySelector('.rename-button').classList.add('undisplayed')
-  }
-
-  const hideRenameForm = (event) => {
-    document.querySelector('.board-name').classList.remove('undisplayed')
-    document.querySelector('.rename-board-form').classList.add('undisplayed')
-    document.querySelector('.rename-button').classList.remove('undisplayed')
-  }
-
-  const handleRenameBoard = async (event) => {
-    getBoard()
-  }
   const handleDeleteBoard = async (event) => {
     const confirmed = window.confirm('Do you want to delete this board?')
     if (confirmed) {
@@ -82,6 +69,10 @@ const Board = () => {
     setAddFormVisible(!addFormVisible)
   }
 
+  const toggleRenameFormVisibility = () => {
+    setRenameFormVisible(!renameFormVisible)
+  }
+
   return (
     <>
       <NameSearchModal
@@ -101,25 +92,16 @@ const Board = () => {
           </h1>
           {currentBoard.isOwner ? (
             <>
-              <form className="rename-board-form undisplayed">
-                <input type="text" value={currentBoard.name} />
-                <input type="submit" value="Save" onClick={handleRenameBoard} />
-                <input type="button" value="Cancel" onClick={hideRenameForm} />
-              </form>
-
-              <button
-                className="add-participant"
-                onClick={toggleAddFormVisibility}
-              >
-                Add participant
-              </button>
-              <button className="rename-button" onClick={showRenameForm}>
-                Rename board
-              </button>
+              <button onClick={toggleAddFormVisibility}>Add participant</button>
+              <button onClick={toggleRenameFormVisibility}>Rename board</button>
               <button onClick={handleDeleteBoard}>Delete board</button>
               <NewParticipantForm
                 isVisible={addFormVisible}
                 toggleVisibility={toggleAddFormVisibility}
+              />
+              <NewBoardNameForm
+                isVisible={renameFormVisible}
+                toggleVisibility={toggleRenameFormVisibility}
               />
             </>
           ) : (

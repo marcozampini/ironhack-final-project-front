@@ -53,18 +53,17 @@
 .list .name:hover .info-text {
   display: inline;
 }
-.new-user-form {
+.new-form {
   position: absolute;
-  min-height: 20rem;
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 0.5rem;
   background-color: white;
 }
-.new-user-form ul {
+.new-form ul {
   margin-top: 1rem;
 }
-.new-user-form .username-item {
+.new-form .username-item {
   display: flex;
   justify-content: space-between;
 }

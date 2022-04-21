@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react'
 import axios from 'axios'
+import React, { useContext, useState } from 'react'
 import { CurrentBoardContext } from '../context/currentBoard.context'
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -29,7 +29,7 @@ const NewUser = ({ isVisible, toggleVisibility }) => {
     e.preventDefault()
 
     try {
-      const { status, data: body } = await axios.post(
+      const { status } = await axios.post(
         `${API_URL}/boards/${currentBoard._id}/${userId}`,
         {},
         {

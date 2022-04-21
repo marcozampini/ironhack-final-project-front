@@ -12,11 +12,9 @@ import './Boards.css'
 
 const Board = () => {
   const { currentBoard, fetchBoard } = useContext(CurrentBoardContext)
-  const { deleteBoard, deleteList, deleteName, capitalizeFirstLetter } =
-    useContext(BoardContext)
+  const { deleteBoard, deleteList } = useContext(BoardContext)
   const { resetSearch } = useContext(NameSearchContext)
 
-  const savedToken = localStorage.getItem('authToken')
   const navigate = useNavigate()
 
   const [modalVisible, setModalVisible] = useState(false)
@@ -28,7 +26,7 @@ const Board = () => {
   const getBoard = useCallback(async () => {
     resetSearch()
     await fetchBoard(boardId)
-  }, [boardId, savedToken])
+  }, [boardId, fetchBoard, resetSearch])
 
   useEffect(() => {
     getBoard()
@@ -51,14 +49,6 @@ const Board = () => {
         navigate('/boards')
       } else {
       }
-    }
-  }
-
-  const handleDeleteName = async (listId, nameId, event) => {
-    const confirmed = window.confirm('Do you want to delete this name?')
-    if (confirmed) {
-      await deleteName(listId, nameId)
-      getBoard()
     }
   }
 
@@ -132,7 +122,7 @@ const Board = () => {
                       })
                       .map((name) => {
                         return (
-                          <li className='name' key={list._id + '--' + name._id}>
+                          <li className="name" key={list._id + '--' + name._id}>
                             <Name
                               key={list._id + '--' + name._id}
                               weight={name.weight}

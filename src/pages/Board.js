@@ -91,6 +91,7 @@ const Board = () => {
                 toggleVisibility={toggleAddFormVisibility}
               />
               <NewBoardNameForm
+                boardId={boardId}
                 isVisible={renameFormVisible}
                 toggleVisibility={toggleRenameFormVisibility}
               />

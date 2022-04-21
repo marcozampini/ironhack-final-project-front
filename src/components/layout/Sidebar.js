@@ -12,7 +12,7 @@ const Sidebar = () => {
 
   const handleMenu = () => {
     if (sidebarClass === 'sidebar open') {
-      setSidebarClass('sidebar close')
+      setSidebarClass('sidebar closed')
       setToggleMenuText('Open menu')
     } else {
       setSidebarClass('sidebar open')
@@ -45,11 +45,9 @@ const Sidebar = () => {
             </ul>
           )}
 
-          <ul>
-            <li>
-              <Link to="./boards/new">Create a new board</Link>
-            </li>
-          </ul>
+          <h4>
+            <Link to="./boards/new">Create a new board</Link>
+          </h4>
         </>
       )}
       {isLoggedIn ? (

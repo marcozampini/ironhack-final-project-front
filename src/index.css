@@ -34,10 +34,14 @@ input[type='button'] {
   cursor: pointer;
 }
 label,
-input[type='text'] {
+input[type='text'],
+input[type='email'],
+input[type='password'] {
   margin-right: 0.5rem;
 }
-input[type='text'] {
+input[type='text'],
+input[type='email'],
+input[type='password'] {
   padding: 0.1rem 0.3rem;
   border: 1px solid #ccc;
   border-radius: 0.5rem;

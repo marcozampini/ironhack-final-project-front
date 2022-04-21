@@ -3,7 +3,7 @@ import axios from 'axios'
 import { CurrentBoardContext } from '../context/currentBoard.context'
 const API_URL = process.env.REACT_APP_API_URL
 
-const NewUser = () => {
+const NewUser = ({ isVisible, toggleVisibility }) => {
   const { currentBoard, fetchBoard } = useContext(CurrentBoardContext)
 
   const savedToken = localStorage.getItem('authToken')
@@ -25,8 +25,8 @@ const NewUser = () => {
       setUsers(userGot.data)
     }
   }
-  const addUserToBoard = async (userId) => {
-    console.log(currentBoard)
+  const addUserToBoard = async (e, userId) => {
+    e.preventDefault()
 
     try {
       const { status, data: body } = await axios.post(
@@ -44,8 +44,8 @@ const NewUser = () => {
     }
   }
 
-  const deleteUserFromBoard = async (userId) => {
-    console.log(currentBoard)
+  const deleteUserFromBoard = async (e, userId) => {
+    e.preventDefault()
 
     try {
       const response = await axios.delete(
@@ -65,32 +65,42 @@ const NewUser = () => {
 
   return (
     <>
-      <h2>Add a Participant</h2>
-      <input
-        type="text"
-        placeholder="Search here"
-        onChange={handleSearch}
-        value={user}
-      />
-
-      <ul>
-        {users.map((user, index) => {
-          return (
-            <li>
-              {user.username}
-              {currentBoard.lists.some((list) => {
-                return list.owner._id === user.id
-              }) ? (
-                <button onClick={() => deleteUserFromBoard(user.id)}>
-                  Remove
-                </button>
-              ) : (
-                <button onClick={() => addUserToBoard(user.id)}>Add</button>
-              )}
-            </li>
-          )
-        })}
-      </ul>
+      {isVisible && (
+        <form className="new-form">
+          <div className="close">
+            <button onClick={toggleVisibility}>Close</button>
+          </div>
+          <h2>Add a participant</h2>
+          <label htmlFor="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            placeholder="Type the username here"
+            onChange={handleSearch}
+            value={user}
+          />
+          <ul>
+            {users.map((user, index) => {
+              return (
+                <li className="username-item" key={user.id}>
+                  {user.username}
+                  {currentBoard.lists.some((list) => {
+                    return list.owner._id === user.id
+                  }) ? (
+                    <button onClick={(e) => deleteUserFromBoard(e, user.id)}>
+                      Remove
+                    </button>
+                  ) : (
+                    <button onClick={(e) => addUserToBoard(e, user.id)}>
+                      Add
+                    </button>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+        </form>
+      )}
     </>
   )
 }

@@ -2,7 +2,8 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AvatarUsername from '../components/AvatarUsername'
 import NameSearchModal from '../components/names/NameSearchModal'
-import NewUser from '../components/NewUser'
+import NewBoardNameForm from '../components/NewBoardNameForm'
+import NewParticipantForm from '../components/NewParticipantForm'
 import { BoardContext } from '../context/board.context'
 import { CurrentBoardContext } from '../context/currentBoard.context'
 import { NameSearchContext } from '../context/nameSearch.context'
@@ -10,13 +11,17 @@ import './Boards.css'
 
 const Board = () => {
   const { currentBoard, fetchBoard } = useContext(CurrentBoardContext)
-  const { deleteBoard, deleteList, deleteName } = useContext(BoardContext)
+  const { deleteBoard, deleteList, deleteName, capitalizeFirstLetter } =
+    useContext(BoardContext)
   const { resetSearch } = useContext(NameSearchContext)
 
   const savedToken = localStorage.getItem('authToken')
   const navigate = useNavigate()
 
   const [modalVisible, setModalVisible] = useState(false)
+  const [addFormVisible, setAddFormVisible] = useState(false)
+  const [renameFormVisible, setRenameFormVisible] = useState(false)
+
   const { boardId } = useParams()
 
   const getBoard = useCallback(async () => {
@@ -28,21 +33,6 @@ const Board = () => {
     getBoard()
   }, [getBoard])
 
-  const showRenameForm = (event) => {
-    document.querySelector('.board-name').classList.add('undisplayed')
-    document.querySelector('.rename-board-form').classList.remove('undisplayed')
-    document.querySelector('.rename-button').classList.add('undisplayed')
-  }
-
-  const hideRenameForm = (event) => {
-    document.querySelector('.board-name').classList.remove('undisplayed')
-    document.querySelector('.rename-board-form').classList.add('undisplayed')
-    document.querySelector('.rename-button').classList.remove('undisplayed')
-  }
-
-  const handleRenameBoard = async (event) => {
-    getBoard()
-  }
   const handleDeleteBoard = async (event) => {
     const confirmed = window.confirm('Do you want to delete this board?')
     if (confirmed) {
@@ -51,11 +41,15 @@ const Board = () => {
     }
   }
 
-  const handleDeleteList = async (boardId, userId, event) => {
+  const handleDeleteList = async (boardId, userId, isOwner, event) => {
     const confirmed = window.confirm('Do you want to delete this list?')
     if (confirmed) {
       await deleteList(boardId, userId)
-      navigate('/boards')
+      getBoard()
+      if (isOwner) {
+        navigate('/boards')
+      } else {
+      }
     }
   }
 
@@ -69,6 +63,14 @@ const Board = () => {
 
   const toggleModalVisibility = () => {
     setModalVisible(!modalVisible)
+  }
+
+  const toggleAddFormVisibility = () => {
+    setAddFormVisible(!addFormVisible)
+  }
+
+  const toggleRenameFormVisibility = () => {
+    setRenameFormVisible(!renameFormVisible)
   }
 
   return (
@@ -90,17 +92,17 @@ const Board = () => {
           </h1>
           {currentBoard.isOwner ? (
             <>
-              <form className="rename-board-form undisplayed">
-                <input type="text" value={currentBoard.name} />
-                <input type="submit" value="Save" onClick={handleRenameBoard} />
-                <input type="button" value="Cancel" onClick={hideRenameForm} />
-              </form>
-              <NewUser />
-              <button className="add-participant">Add participant</button>
-              <button className="rename-button" onClick={showRenameForm}>
-                Rename board
-              </button>
+              <button onClick={toggleAddFormVisibility}>Add participant</button>
+              <button onClick={toggleRenameFormVisibility}>Rename board</button>
               <button onClick={handleDeleteBoard}>Delete board</button>
+              <NewParticipantForm
+                isVisible={addFormVisible}
+                toggleVisibility={toggleAddFormVisibility}
+              />
+              <NewBoardNameForm
+                isVisible={renameFormVisible}
+                toggleVisibility={toggleRenameFormVisibility}
+              />
             </>
           ) : (
             <></>
@@ -121,15 +123,16 @@ const Board = () => {
                   <ul>
                     {list.names.map((name) => {
                       return (
-                        <li key={list._id + '--' + name._id}>
-                          {name.value}
+                        <li className="name" key={list._id + '--' + name._id}>
+                          {capitalizeFirstLetter(name.value)}
                           {list.isOwner && (
                             <button
                               onClick={(e) =>
                                 handleDeleteName(list._id, name._id, e)
                               }
                             >
-                              Delete
+                              <i className="fa-solid fa-circle-minus"></i>{' '}
+                              <span className="info-text">Remove</span>
                             </button>
                           )}
                         </li>
@@ -137,15 +140,23 @@ const Board = () => {
                     })}
                   </ul>
                   {list.isOwner && (
-                    <button onClick={toggleModalVisibility}>Add name</button>
+                    <button onClick={toggleModalVisibility}>
+                      <i className="fa-solid fa-circle-plus"></i> Add name
+                    </button>
                   )}
-                  {list.isOwner && !currentBoard.isOwner && (
+                  {((list.isOwner && !currentBoard.isOwner) ||
+                    (!list.isOwner && currentBoard.isOwner)) && (
                     <button
                       onClick={(e) =>
-                        handleDeleteList(currentBoard._id, list.owner._id, e)
+                        handleDeleteList(
+                          currentBoard._id,
+                          list.owner._id,
+                          list.isOwner,
+                          e
+                        )
                       }
                     >
-                      Delete list
+                      <i className="fa-solid fa-trash-can"></i> Delete list
                     </button>
                   )}
                 </div>

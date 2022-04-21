@@ -1,15 +1,16 @@
-.avatar-username span {
-  font-weight: 700;
+.avatar-username {
+  display: flex;
+  align-items: center;
 }
 .avatar-username span.text-before {
   margin-right: 0.2rem;
 }
 .avatar-username picture {
-}
-.avatar-username picture img {
-  vertical-align: middle;
   width: 2rem;
   height: 2rem;
+  border: 1px solid #ccc;
   border-radius: 1rem;
   margin-right: 0.2rem;
+  background-color: white;
+  overflow: hidden;
 }

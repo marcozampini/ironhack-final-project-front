@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext, useCallback } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 const API_URL = process.env.REACT_APP_API_URL
 
 const CurrentBoardContext = createContext()
@@ -8,6 +9,7 @@ const CurrentBoardContext = createContext()
 function CurrentBoardProviderWrapper(props) {
   const [currentBoard, setCurrentBoard] = useState(null)
   const [currentBoardOwnedList, setCurrentBoardOwnedList] = useState(null)
+  const navigate = useNavigate();
 
 
   const fetchBoard = useCallback(async (id) => {
@@ -21,6 +23,7 @@ function CurrentBoardProviderWrapper(props) {
       }
     } catch (error) {
       console.error(error)
+      navigate('/boards')
     }
   }, [])
 

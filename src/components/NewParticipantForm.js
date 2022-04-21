@@ -25,8 +25,8 @@ const NewUser = ({ isVisible, toggleVisibility }) => {
       setUsers(userGot.data)
     }
   }
-  const addUserToBoard = async (userId) => {
-    console.log(currentBoard)
+  const addUserToBoard = async (e, userId) => {
+    e.preventDefault()
 
     try {
       const { status, data: body } = await axios.post(
@@ -44,8 +44,8 @@ const NewUser = ({ isVisible, toggleVisibility }) => {
     }
   }
 
-  const deleteUserFromBoard = async (userId) => {
-    console.log(currentBoard)
+  const deleteUserFromBoard = async (e, userId) => {
+    e.preventDefault()
 
     try {
       const response = await axios.delete(
@@ -66,10 +66,11 @@ const NewUser = ({ isVisible, toggleVisibility }) => {
   return (
     <>
       {isVisible && (
-        <div className="new-user-form">
+        <form className="new-form">
           <div className="close">
             <button onClick={toggleVisibility}>Close</button>
           </div>
+          <h2>Add a participant</h2>
           <label htmlFor="username">Username</label>
           <input
             id="username"
@@ -86,17 +87,19 @@ const NewUser = ({ isVisible, toggleVisibility }) => {
                   {currentBoard.lists.some((list) => {
                     return list.owner._id === user.id
                   }) ? (
-                    <button onClick={() => deleteUserFromBoard(user.id)}>
+                    <button onClick={(e) => deleteUserFromBoard(e, user.id)}>
                       Remove
                     </button>
                   ) : (
-                    <button onClick={() => addUserToBoard(user.id)}>Add</button>
+                    <button onClick={(e) => addUserToBoard(e, user.id)}>
+                      Add
+                    </button>
                   )}
                 </li>
               )
             })}
           </ul>
-        </div>
+        </form>
       )}
     </>
   )

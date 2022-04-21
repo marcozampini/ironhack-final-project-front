@@ -3,7 +3,7 @@
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 .board,
 .list {
@@ -12,8 +12,7 @@
   border: 1px solid #ccc;
   border-radius: 0.5rem;
   padding: 1rem;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
+  margin: 0 0.5rem 1rem;
 }
 .board h2,
 .list h2 {
@@ -67,9 +66,15 @@
   display: flex;
   justify-content: space-between;
 }
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .board,
   .list {
     width: 100%;
+  }
+}
+@media (min-width: 641px) {
+  .board,
+  .list {
+    max-width: calc(50% - 1rem);
   }
 }

@@ -9,8 +9,13 @@
 }
 .main {
   width: 100%;
-  padding: 1rem;
+  padding: 1rem 0.5rem;
   background-color: #ecb390;
+}
+.main > h1,
+.main > h2,
+.main > form {
+  padding: 0 1.5rem;
 }
 .sidebar {
   background-color: #d4e2d4;
@@ -31,7 +36,7 @@
   display: none;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .App {
     flex-direction: column;
   }

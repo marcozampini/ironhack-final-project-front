@@ -7,16 +7,22 @@ const NewBoardForm = () => {
   const [formData, setFormData] = useState({
     name: '',
   })
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleSubmit = async (event) => {
     // do not navigate the browser on form submit
     event.preventDefault()
-    createBoard(formData)
-    setFormData({
-      name: '',
-    })
+    if (formData.name.length) {
+      createBoard(formData)
+      setFormData({
+        name: '',
+      })
+    } else {
+      setErrorMessage('Please provide a name')
+    }
   }
   const handleChanges = (event) => {
+    setErrorMessage('')
     const { value } = event.target
     const newFormData = { name: value }
     setFormData(newFormData)
@@ -33,6 +39,7 @@ const NewBoardForm = () => {
           onChange={handleChanges}
         />
         <input type="submit" value="Add board" />
+        <p>{ errorMessage.length !== 0 && errorMessage}</p>
       </form>
     </>
   )

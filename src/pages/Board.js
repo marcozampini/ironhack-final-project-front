@@ -1,6 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AvatarUsername from '../components/AvatarUsername'
+import Name from '../components/names/Name'
 import NameSearchModal from '../components/names/NameSearchModal'
 import NewBoardNameForm from '../components/NewBoardNameForm'
 import NewParticipantForm from '../components/NewParticipantForm'
@@ -121,23 +122,28 @@ const Board = () => {
                   </h2>
 
                   <ul>
-                    {list.names.map((name) => {
-                      return (
-                        <li className="name" key={list._id + '--' + name._id}>
-                          {capitalizeFirstLetter(name.value)}
-                          {list.isOwner && (
-                            <button
-                              onClick={(e) =>
-                                handleDeleteName(list._id, name._id, e)
-                              }
-                            >
-                              <i className="fa-solid fa-circle-minus"></i>{' '}
-                              <span className="info-text">Remove</span>
-                            </button>
-                          )}
-                        </li>
-                      )
-                    })}
+                    {list.names
+                      .sort((a, b) => {
+                        if (b.weight === a.weight) {
+                          return a.value.localeCompare(b.value)
+                        } else {
+                          return b.weight - a.weight
+                        }
+                      })
+                      .map((name) => {
+                        return (
+                          <li className='name' key={list._id + '--' + name._id}>
+                            <Name
+                              key={list._id + '--' + name._id}
+                              weight={name.weight}
+                              name={name.value}
+                              nameId={name._id}
+                              displayMode={list.isOwner === false}
+                              list={list}
+                            />
+                          </li>
+                        )
+                      })}
                   </ul>
                   {list.isOwner && (
                     <button onClick={toggleModalVisibility}>

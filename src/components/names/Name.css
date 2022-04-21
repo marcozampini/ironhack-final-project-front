@@ -1,4 +1,19 @@
 .errorMessage {
-	color: red;
-	font-size: 0.6rem;
+  color: red;
+  font-size: 0.6rem;
+}
+
+.resultItem {
+	margin: 5px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+	align-items: center;
+  text-align: center;
+}
+
+.resultAction > * {
+  text-align: center;
+	margin: 0 10px;
 }

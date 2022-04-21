@@ -7,16 +7,20 @@ const NameSearchContext = createContext()
 const savedToken = localStorage.getItem('authToken')
 
 function NameSearchProviderWrapper(props) {
+  const defaultFormData = {
+    q: '',
+    minlen: undefined,
+    maxlen: undefined
+  }
   const [searchResults, setSearchResults] = useState([])
   const [isRequestSent, setIsRequestSent] = useState(false)
-  const [formData, setFormData] = useState({
-    q: '',
-  })
+  const [formData, setFormData] = useState(defaultFormData)
 
   async function handleSubmit(event) {
     // do not navigate the browser on form submit
     event.preventDefault()
     try {
+      console.log('sending ->', formData);
       const { data } = await axios.get(`${API_URL}/names`, {
         params: formData,
         headers: { Authorization: `Bearer ${savedToken}` },
@@ -24,18 +28,27 @@ function NameSearchProviderWrapper(props) {
       setIsRequestSent(true)
       setSearchResults(data)
     } catch (error) {
-      console.error(error)
+      if (error.response.status != 400) {
+        console.error(error)
+      }
     }
   }
 
-  function handleChanges(event) {
+  function handleNameLenChange(minlen, maxlen) {
+    const newFormData = { ...formData, minlen, maxlen }
+    console.log('update len, new data', newFormData);
+    setFormData(newFormData)
+  }
+
+  function handleQueryChange(event) {
     const { value } = event.target
-    const newFormData = { q: value }
+    const newFormData = { ...formData, q: value }
+    console.log('update query, new data', newFormData);
     setFormData(newFormData)
   }
 
   function resetSearch() {
-    setFormData({ q: '' })
+    setFormData(defaultFormData)
     setSearchResults([])
     setIsRequestSent(false)
   }
@@ -45,7 +58,8 @@ function NameSearchProviderWrapper(props) {
       value={{
         resetSearch,
         formData,
-        handleChanges,
+        handleNameLenChange,
+        handleQueryChange,
         handleSubmit,
         searchResults,
         isRequestSent,

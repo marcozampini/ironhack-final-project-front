@@ -1,14 +1,21 @@
+import { DislikeTwoTone } from '@ant-design/icons'
+import { Rate } from 'antd'
 import { useContext, useEffect, useState } from 'react'
 import { BoardContext } from '../../context/board.context'
 import { CurrentBoardContext } from '../../context/currentBoard.context'
 import './Name.css'
 
-const Name = ({ data, list }) => {
+const customIconsDislike = {
+  1: <DislikeTwoTone />,
+}
+
+const Name = ({ nameId, name, weight, displayMode, list }) => {
   const { currentBoard, currentBoardOwnedList, fetchBoard } =
     useContext(CurrentBoardContext)
   const [isInList, setIsInList] = useState(
-    currentBoardOwnedList?.names.some((item) => item.value === data.name.value)
+    currentBoardOwnedList?.names.some((item) => item.value === name)
   )
+  const [rating, setRating] = useState(weight > 3 ? 3 : weight)
   const [errorFetch, setErrorFetch] = useState('')
   const { addName, deleteName, capitalizeFirstLetter } =
     useContext(BoardContext)
@@ -16,7 +23,7 @@ const Name = ({ data, list }) => {
   async function handleAdd() {
     setErrorFetch('')
     try {
-      const { status, data: body } = await addName(list._id, data.name, 42)
+      const { status, data: body } = await addName(list._id, nameId, rating)
       if (status === 200) {
         await fetchBoard(currentBoard._id)
       } else {
@@ -32,7 +39,7 @@ const Name = ({ data, list }) => {
   async function handleDelete() {
     setErrorFetch('')
     try {
-      const { status, data: body } = await deleteName(list._id, data.name._id)
+      const { status, data: body } = await deleteName(list._id, nameId)
       if (status === 204) {
         await fetchBoard(currentBoard._id)
       } else {
@@ -45,40 +52,99 @@ const Name = ({ data, list }) => {
     }
   }
 
+  /**
+   * This function set name rating: -1 is a name they wish would not be given
+      and 0 ~ 2 is a range for positive appreciation
+   * @param {value} value rate given by user
+   */
+  function handleRateChange(value) {
+    setRating(value)
+  }
+
   useEffect(() => {
     setIsInList(
-      currentBoardOwnedList?.names.some(
-        (item) => item.value === data.name.value
-      )
+      currentBoardOwnedList?.names.some((item) => item.value === name)
     )
   }, [currentBoardOwnedList])
 
   return (
     <>
-      <div>
-        {capitalizeFirstLetter(data.name.value)}
-        {isInList ? (
-          <button onClick={handleDelete}>Remove</button>
-        ) : (
-          <button onClick={handleAdd}>Add</button>
-        )}
-        {errorFetch.length ? <p className="errorMessage">{errorFetch}</p> : ''}
-      </div>
+      {displayMode ? (
+        <>
+          <div className="resultItem">
+            <div>{capitalizeFirstLetter(name)}</div>
+            <div className="resultAction">
+              {rating === -1 ? (
+                <DislikeTwoTone
+                  disabled={true}
+                  twoToneColor={rating === -1 ? '#ff3d3d' : '#cccccc'}
+                />
+              ) : (
+                <Rate
+                  disabled={true}
+                  allowClear={true}
+                  value={rating === -1 ? 0 : rating}
+                  count={3}
+                />
+              )}
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="resultItem">
+          <div>{capitalizeFirstLetter(name)}</div>
+          {isInList ? (
+            <div className="resultAction">
+              {rating === -1 ? (
+                <DislikeTwoTone
+                  disabled={true}
+                  twoToneColor={rating === -1 ? '#ff3d3d' : '#cccccc'}
+                />
+              ) : (
+                <Rate
+                  disabled={true}
+                  allowClear={true}
+                  value={rating === -1 ? 0 : rating}
+                  defaultValue={2}
+                  count={3}
+                />
+              )}
+              <button onClick={handleDelete}>
+                <i className="fa-solid fa-circle-minus"></i>{' '}
+                <span className="info-text">Remove</span>
+              </button>
+            </div>
+          ) : (
+            <div className="resultAction name">
+              <DislikeTwoTone
+                twoToneColor={rating === -1 ? '#ff3d3d' : '#cccccc'}
+                onClick={() =>
+                  rating === 0 ? handleRateChange(1) : handleRateChange(-1)
+                }
+              />
+              <Rate
+                allowClear={true}
+                value={rating === -1 ? 0 : rating}
+                defaultValue={2}
+                count={3}
+                onChange={handleRateChange}
+              />
+              <button onClick={handleAdd}>
+                <i className="fa-solid fa-circle-plus"></i>{' '}
+                <span className="info-text">Add</span>
+              </button>
+            </div>
+          )}
+
+          {errorFetch.length !== 0 && (
+            <div>
+              <p className="errorMessage">{errorFetch}</p>
+            </div>
+          )}
+        </div>
+      )}
     </>
   )
 }
 
 export default Name
-
-// const [formData, setFormData] = useState({weight: 0});
-// <form onSubmit={handleSubmit}>
-//   <label htmlFor='q'>Name</label>
-//   <input
-//     id='q'
-//     type='number'
-//     value={formData.q}
-//     onChange={handleChanges}
-//   />
-//   <input type='submit' value='search' />
-//   <button onClick={() => addNameToList(data.name)}>ADD</button>
-// </form>

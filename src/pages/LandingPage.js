@@ -6,11 +6,22 @@ const LandingPage = () => {
   const { isLoggedIn } = useContext(AuthContext)
   return (
     <>
-      <h1>Landing Page</h1>
+      <div className="landingPageDiv">
+        <h1>Pick The One</h1>
+      </div>
+      <h1>Search Baby Names</h1>
 
       <p>
-        This is a wonderful app to help you choose the best name for your baby.
+        Pick the one has a great way to find the perfect name for baby: look up
+        for a name, add it to your list and share it with your friends and
+        family.
       </p>
+      <h5>LOOKING TO GET INSPIRED?? </h5>
+      <p>
+        Why don't you create a board and add your family and friends for their
+        suggestions.
+      </p>
+
       {isLoggedIn ? (
         <>
           <p>

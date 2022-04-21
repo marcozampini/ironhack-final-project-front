@@ -19,7 +19,8 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
     weight > 3 ? 3 : weight
   )
   const [errorFetch, setErrorFetch] = useState('')
-  const { addName, deleteName } = useContext(BoardContext)
+  const { addName, deleteName, capitalizeFirstLetter } =
+    useContext(BoardContext)
 
   async function handleAdd() {
     setErrorFetch('')
@@ -75,7 +76,7 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
       {displayMode ? (
         <>
           <div className="resultItem">
-            <div>{name}</div>
+            <div>{capitalizeFirstLetter(name)}</div>
             <div className="resultAction">
               {rating === -1 ? (
                 <DislikeTwoTone
@@ -95,7 +96,7 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
         </>
       ) : (
         <div className="resultItem">
-          <div>{name}</div>
+          <div>{capitalizeFirstLetter(name)}</div>
           {isInList ? (
             <div className="resultAction">
               {rating === -1 ? (

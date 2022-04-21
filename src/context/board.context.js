@@ -5,13 +5,13 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const BoardContext = createContext()
 
-const savedToken = localStorage.getItem('authToken')
-
 function BoardProviderWrapper(props) {
   const [boards, setBoards] = useState([])
+  const { isLoggedIn, user } = useContext(AuthContext)
 
   const getAllBoards = async () => {
     try {
+      const savedToken = localStorage.getItem('authToken')
       const response = await axios.get(`${API_URL}/boards`, {
         headers: { Authorization: `Bearer ${savedToken}` },
       })
@@ -22,10 +22,15 @@ function BoardProviderWrapper(props) {
   }
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      setBoards([])
+      return
+    }
     getAllBoards()
-  }, [])
+  }, [user, isLoggedIn])
 
   async function createBoard(formData) {
+    const savedToken = localStorage.getItem('authToken')
     try {
       await axios.post(`${API_URL}/boards`, formData, {
         headers: { Authorization: `Bearer ${savedToken}` },
@@ -37,6 +42,7 @@ function BoardProviderWrapper(props) {
   }
 
   async function deleteBoard(boardId) {
+    const savedToken = localStorage.getItem('authToken')
     try {
       await axios.delete(`${API_URL}/boards/${boardId}`, {
         headers: { Authorization: `Bearer ${savedToken}` },
@@ -48,6 +54,7 @@ function BoardProviderWrapper(props) {
   }
 
   async function deleteList(boardId, userId) {
+    const savedToken = localStorage.getItem('authToken')
     try {
       await axios.delete(`${API_URL}/boards/${boardId}/${userId}`, {
         headers: { Authorization: `Bearer ${savedToken}` },
@@ -59,6 +66,7 @@ function BoardProviderWrapper(props) {
   }
 
   async function addName(listId, nameId, weight) {
+    const savedToken = localStorage.getItem('authToken')
     try {
       const response = await axios.post(
         `${API_URL}/lists/${listId}`,
@@ -77,6 +85,7 @@ function BoardProviderWrapper(props) {
   }
 
   async function deleteName(listId, nameId) {
+    const savedToken = localStorage.getItem('authToken')
     try {
       const response = await axios.delete(
         `${API_URL}/lists/${listId}/${nameId}`,
@@ -90,6 +99,21 @@ function BoardProviderWrapper(props) {
     }
   }
 
+  const capitalizeFirstLetter = (string) => {
+    let capitalizedString =
+      string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+    const indexOfCharAfterDash = capitalizedString.indexOf('-') + 1
+    if (indexOfCharAfterDash === 0) {
+      return capitalizedString
+    } else {
+      capitalizedString =
+        capitalizedString.slice(0, indexOfCharAfterDash) +
+        capitalizedString.charAt(indexOfCharAfterDash).toUpperCase() +
+        capitalizedString.slice(indexOfCharAfterDash + 1)
+      return capitalizedString
+    }
+  }
+
   return (
     <BoardContext.Provider
       value={{
@@ -99,6 +123,7 @@ function BoardProviderWrapper(props) {
         deleteList,
         addName,
         deleteName,
+        capitalizeFirstLetter,
       }}
     >
       {props.children}

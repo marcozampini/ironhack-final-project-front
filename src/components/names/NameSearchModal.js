@@ -84,13 +84,11 @@ const NameSearchModal = ({ isVisible, toggleVisibility }) => {
                 searchResults
                   .sort((a, b) => a.name.value.length - b.name.value.length)
                   .map((item) => (
-                    <div className="resultItem">
-                      <Name
+                    <Name
                         key={item._id}
                         data={item}
                         list={currentBoardOwnedList}
                       />
-                    </div>
                   ))) || (
                 <div className="resultItem">
                   {isRequestSent && 'No results...'}

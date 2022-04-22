@@ -11,7 +11,12 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
   const [isInList, setIsInList] = useState(
     currentBoardOwnedList?.names.some((item) => item.value === name)
   )
-  const [rating, setRating] = useState(weight > 3 ? 3 : weight)
+  const [rating, setRating] = useState(() => {
+    if (!weight) {
+      return 2;
+    }
+    return weight > 3 ? 3 : weight
+  })
   const [errorFetch, setErrorFetch] = useState('')
   const { addName, deleteName, capitalizeFirstLetter } =
     useContext(BoardContext)

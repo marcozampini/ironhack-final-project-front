@@ -9,6 +9,11 @@ const Sidebar = () => {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext)
   const [sidebarClass, setSidebarClass] = useState('sidebar open')
   const [toggleMenuText, setToggleMenuText] = useState('Close menu')
+  const countries = [
+    { cca3: 'ita', name: 'Italy' },
+    { cca3: 'fra', name: 'France' },
+    { cca3: 'gbr', name: 'United Kingdom' },
+  ]
 
   const handleMenu = () => {
     if (sidebarClass === 'sidebar open') {
@@ -50,6 +55,20 @@ const Sidebar = () => {
           </h4>
         </>
       )}
+      <h3>Popular names</h3>
+      {countries && (
+        <ul>
+          {countries.map((country) => {
+            return (
+              <li key={country.cca3}>
+                <Link to={'names/popular/' + country.cca3}>
+                  Most popular names in {country.name}
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      )}
       {isLoggedIn ? (
         <>
           <h3>
@@ -60,7 +79,9 @@ const Sidebar = () => {
           </h3>
           <ul>
             <li>
-              <button onClick={logOutUser}>Log out</button>
+              <button onClick={logOutUser}>
+                <i class="fa-solid fa-right-from-bracket"></i> Log out
+              </button>
             </li>
           </ul>
         </>
@@ -77,7 +98,9 @@ const Sidebar = () => {
           </ul>
         </>
       )}
-      <button onClick={handleMenu}>{toggleMenuText}</button>
+      <button onClick={handleMenu}>
+        <i class="fa-solid fa-bars"></i> {toggleMenuText}
+      </button>
       <div className="landingPagePopUp">
         <div class="box">
           <button>

@@ -66,14 +66,14 @@ const NewUser = ({ isVisible, toggleVisibility }) => {
   return (
     <>
       {isVisible && (
-        <form className="new-form">
-          <div className="close">
-            <button onClick={toggleVisibility}>Close</button>
-          </div>
+        <form className="inline-absolute-form">
+          <button className="close" onClick={toggleVisibility}>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
           <h2>Add a participant</h2>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username-search">Username</label>
           <input
-            id="username"
+            id="username-search"
             type="text"
             placeholder="Type the username here"
             onChange={handleSearch}
@@ -88,11 +88,13 @@ const NewUser = ({ isVisible, toggleVisibility }) => {
                     return list.owner._id === user.id
                   }) ? (
                     <button onClick={(e) => deleteUserFromBoard(e, user.id)}>
-                      Remove
+                      <i className="fa-solid fa-circle-minus"></i>{' '}
+                      <span className="info-text">Remove</span>
                     </button>
                   ) : (
                     <button onClick={(e) => addUserToBoard(e, user.id)}>
-                      Add
+                      <i className="fa-solid fa-circle-plus"></i>{' '}
+                      <span className="info-text">Add</span>
                     </button>
                   )}
                 </li>

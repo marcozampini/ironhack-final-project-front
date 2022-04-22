@@ -5,7 +5,9 @@ const NewBoard = () => {
   return (
     <>
       <h1>New Board</h1>
-      <NewBoardForm />
+      <div className="main-content">
+        <NewBoardForm />
+      </div>
     </>
   )
 }

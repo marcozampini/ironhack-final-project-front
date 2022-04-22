@@ -1,11 +1,9 @@
-.boards,
 .lists {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
   margin-bottom: 1rem;
 }
-.board,
 .list {
   flex: 1;
   background-color: #fcf8e8;
@@ -14,9 +12,14 @@
   padding: 1rem;
   margin: 0 0.5rem 1rem;
 }
-.board h2,
 .list h2 {
   white-space: nowrap;
+}
+.list a {
+  color: #333;
+}
+.list a:hover {
+  color: #df7861;
 }
 .board-name {
   display: flex;
@@ -37,12 +40,16 @@
   border: 1px solid #eee;
   border-radius: 0.5rem;
 }
-
-.list .name button {
+.list .name a {
+  color: #333;
+}
+.list .name button,
+.list .name a.button {
   color: #ddd;
   border: 1px solid white;
 }
-.list .name button:hover {
+.list .name button:hover,
+.list .name a.button:hover {
   color: #333;
   border: 1px solid #ccc;
 }
@@ -52,29 +59,46 @@
 .list .name:hover .info-text {
   display: inline;
 }
-.new-form {
+.inline-absolute-form {
   position: absolute;
+  margin-top: 0.3rem;
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 0.5rem;
   background-color: white;
+  z-index: 50;
 }
-.new-form ul {
+.inline-absolute-form ul {
   margin-top: 1rem;
 }
-.new-form .username-item {
+.inline-absolute-form label,
+.inline-absolute-form input {
+  display: inline-block;
+}
+.inline-absolute-form button,
+.inline-absolute-form input[type='submit'],
+.inline-absolute-form input[type='button'] {
+  background-color: #eee;
+  color: #000;
+}
+.inline-absolute-form .close {
+  position: absolute;
+  right: 1rem;
+  border: none;
+  background-color: white;
+}
+.inline-absolute-form .username-item {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.2rem;
 }
 @media (max-width: 640px) {
-  .board,
   .list {
     width: 100%;
   }
 }
 @media (min-width: 641px) {
-  .board,
-  .list {
+  .list:last-child {
     max-width: calc(50% - 1rem);
   }
 }

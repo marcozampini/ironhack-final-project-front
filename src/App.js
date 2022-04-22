@@ -11,6 +11,8 @@ import Boards from './pages/Boards'
 import Board from './pages/Board'
 import NewBoard from './pages/NewBoard'
 import NotFound from './pages/NotFound'
+import NamePage from './pages/NamePage'
+import PopularNamesPage from './pages/PopularNamesPage'
 
 function App() {
   return (
@@ -59,12 +61,9 @@ function App() {
               </IsPrivate>
             }
           />
-          <Route
-            path="/*"
-            element={
-              <NotFound error={404}/>
-            }
-          />
+          <Route path="/names/popular/:cca3" element={<PopularNamesPage />} />
+          <Route path="/names/:nameId" element={<NamePage />} />
+          <Route path="/*" element={<NotFound error={404} />} />
         </Routes>
       </main>
     </div>

@@ -9,6 +9,11 @@ const Sidebar = () => {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext)
   const [sidebarClass, setSidebarClass] = useState('sidebar open')
   const [toggleMenuText, setToggleMenuText] = useState('Close menu')
+  const countries = [
+    { cca3: 'ita', name: 'Italy' },
+    { cca3: 'fra', name: 'France' },
+    { cca3: 'gbr', name: 'United Kingdom' },
+  ]
 
   const handleMenu = () => {
     if (sidebarClass === 'sidebar open') {
@@ -49,6 +54,20 @@ const Sidebar = () => {
             <Link to="./boards/new">Create a new board</Link>
           </h4>
         </>
+      )}
+      <h3>Popular names</h3>
+      {countries && (
+        <ul>
+          {countries.map((country) => {
+            return (
+              <li key={country.cca3}>
+                <Link to={'names/popular/' + country.cca3}>
+                  Most popular names in {country.name}
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
       )}
       {isLoggedIn ? (
         <>

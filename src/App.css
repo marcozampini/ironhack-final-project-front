@@ -14,8 +14,11 @@
 }
 .main > h1,
 .main > h2,
-.main > form {
+.main > .main-content {
   padding: 0 1.5rem;
+}
+.main-content {
+  margin-bottom: 2rem;
 }
 .sidebar {
   background-color: #d4e2d4;

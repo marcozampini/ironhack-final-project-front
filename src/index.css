@@ -60,6 +60,12 @@ h4 {
   margin-bottom: 1rem;
   font-weight: 700;
 }
+p {
+  margin-bottom: 0.5rem;
+}
+strong {
+  font-weight: 700;
+}
 .undisplayed {
   display: none;
 }

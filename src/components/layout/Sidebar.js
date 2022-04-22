@@ -79,7 +79,9 @@ const Sidebar = () => {
           </h3>
           <ul>
             <li>
-              <button onClick={logOutUser}>Log out</button>
+              <button onClick={logOutUser}>
+                <i class="fa-solid fa-right-from-bracket"></i> Log out
+              </button>
             </li>
           </ul>
         </>
@@ -96,7 +98,9 @@ const Sidebar = () => {
           </ul>
         </>
       )}
-      <button onClick={handleMenu}>{toggleMenuText}</button>
+      <button onClick={handleMenu}>
+        <i class="fa-solid fa-bars"></i> {toggleMenuText}
+      </button>
     </aside>
   )
 }

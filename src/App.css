@@ -56,13 +56,20 @@ dark orange #df7861
   color: #111;
 }
 .sidebar.closed {
-  width: 8rem;
+  width: 10rem;
   text-align: center;
   white-space: normal;
 }
 .sidebar.closed ul,
 .sidebar.closed .username {
   display: none;
+}
+.sidebar.closed .avatar-username {
+  display: inline-block;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 1rem;
+  overflow: hidden;
 }
 .icon::before {
   display: inline-block;

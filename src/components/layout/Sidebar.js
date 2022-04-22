@@ -89,7 +89,7 @@ const Sidebar = () => {
         <div id="popup1" class="overlay">
           <div class="popup">
             <h2>Meet Our Team</h2>
-            <a class="close" href="#">
+            <a class="close" href="/#">
               &times;
             </a>
             <div class="content">

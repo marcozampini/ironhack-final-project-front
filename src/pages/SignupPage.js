@@ -37,32 +37,42 @@ function SignupPage(props) {
   return (
     <>
       <h1>Sign up</h1>
-      <form onSubmit={handleSignupSubmit}>
-        <label>Email:</label>
-        <input type="email" name="email" value={email} onChange={handleEmail} />
-        <label>Username:</label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={handleUsername}
-        />
+      <div className="main-content">
+        <form onSubmit={handleSignupSubmit}>
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleEmail}
+          />
+          <label>Username</label>
+          <input
+            type="text"
+            name="username"
+            value={username}
+            onChange={handleUsername}
+          />
 
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
-        />
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handlePassword}
+          />
+          <button type="submit">
+            <i className="fa-solid fa-user-plus"></i> Sign up
+          </button>
+        </form>
 
-        <button type="submit">Sign Up</button>
-      </form>
-
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-      <p>Already have an account?</p>
-      <Link to={'/login'}>Log in</Link>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+      </div>
+      <div className="main-content">
+        <p>
+          Already have an account? <Link to={'/login'}>Log in</Link>.
+        </p>
+      </div>
     </>
   )
 }

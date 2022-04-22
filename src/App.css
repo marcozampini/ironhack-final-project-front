@@ -1,8 +1,9 @@
-/*Colors*/
-/*giallo chiaro fcf8e8 */
-/*verde chiaro d4e2d4*/
-/*arancione chiaro ecb390*/
-/*arancione scuro df7861*/
+/* Color palette
+yellow #fcf8e8
+green #d4e2d4
+light orange #ecb390
+dark orange #df7861
+*/
 
 .App {
   display: flex;
@@ -19,6 +20,31 @@
 }
 .main-content {
   margin-bottom: 2rem;
+}
+.main-content form label,
+.main-content form input {
+  display: block;
+}
+.main-content form input {
+  margin-bottom: 0.5rem;
+}
+.main-content button,
+.main-content input[type='submit'],
+.main-content input[type='button'] {
+  background-color: #df7861;
+  color: #000;
+}
+.main-content button:hover,
+.main-content input[type='submit']:hover,
+.main-content input[type='button']:hover {
+  background-color: #d4e2d4;
+}
+.main-content a {
+  color: #df7861;
+  font-weight: 700;
+}
+.main-content a :hover {
+  color: #d4e2d4;
 }
 .sidebar {
   background-color: #d4e2d4;
@@ -37,6 +63,15 @@
 .sidebar.closed ul,
 .sidebar.closed .username {
   display: none;
+}
+.icon::before {
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+.icon.signup::before {
+  font: var(--fa-font-solid);
+  content: '\f007';
 }
 
 @media (max-width: 640px) {

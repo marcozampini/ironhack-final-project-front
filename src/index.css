@@ -66,9 +66,6 @@ p {
 strong {
   font-weight: 700;
 }
-.undisplayed {
-  display: none;
-}
 .close {
   position: absolute;
   right: 1rem;

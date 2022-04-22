@@ -32,21 +32,39 @@ const NamePage = () => {
         <>
           <h2>{capitalizeFirstLetter(currentName.value)}</h2>
 
-          {currentName.countries.map((country) => {
-            return (
-              <div key={country.cca3}>
-                <h3>
-                  <img
-                    src={`https://countryflagsapi.com/svg/${country.cca3}`}
-                    alt={`Flag of ${country.name.common}`}
-                  />
-                  {country.name.common}
-                </h3>
-                <p>{country.fCount}</p>
-                <p>{country.mCount}</p>
-              </div>
-            )
-          })}
+          <div className="lists">
+            {currentName.countries.map((country) => {
+              return (
+                <div className="list" key={country.cca3}>
+                  <h2>
+                    <img
+                      src={`https://countryflagsapi.com/svg/${country.cca3}`}
+                      alt={`Flag of ${country.name.common}`}
+                    />{' '}
+                    Popularity in {country.name.common}{' '}
+                    <img
+                      src={`https://countryflagsapi.com/svg/${country.cca3}`}
+                      alt={`Flag of ${country.name.common}`}
+                    />
+                  </h2>
+                  {country.fCount > 0 && (
+                    <p>
+                      <i className="fa-solid fa-venus"></i> {country.fCount}{' '}
+                      girls have been named{' '}
+                      {capitalizeFirstLetter(currentName.value)} in 2020.
+                    </p>
+                  )}
+                  {country.mCount > 0 && (
+                    <p>
+                      <i className="fa-solid fa-mars"></i> {country.mCount} boys
+                      have been named {capitalizeFirstLetter(currentName.value)}{' '}
+                      in 2020.
+                    </p>
+                  )}
+                </div>
+              )
+            })}
+          </div>
         </>
       )}
     </>

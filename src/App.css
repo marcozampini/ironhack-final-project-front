@@ -21,11 +21,11 @@ dark orange #df7861
 .main-content {
   margin-bottom: 2rem;
 }
-.main-content form label,
-.main-content form input {
+.main-content label,
+.main-content input {
   display: block;
 }
-.main-content form input {
+.main-content input {
   margin-bottom: 0.5rem;
 }
 .main-content button,

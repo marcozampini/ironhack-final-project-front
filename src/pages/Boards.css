@@ -56,19 +56,38 @@
 .list .name:hover .info-text {
   display: inline;
 }
-.new-form {
+.inline-absolute-form {
   position: absolute;
+  margin-top: 0.3rem;
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 0.5rem;
   background-color: white;
+  z-index: 50;
 }
-.new-form ul {
+.inline-absolute-form ul {
   margin-top: 1rem;
 }
-.new-form .username-item {
+.inline-absolute-form label,
+.inline-absolute-form input {
+  display: inline-block;
+}
+.inline-absolute-form button,
+.inline-absolute-form input[type='submit'],
+.inline-absolute-form input[type='button'] {
+  background-color: #eee;
+  color: #000;
+}
+.inline-absolute-form .close {
+  position: absolute;
+  right: 1rem;
+  border: none;
+  background-color: white;
+}
+.inline-absolute-form .username-item {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.2rem;
 }
 @media (max-width: 640px) {
   .board,
@@ -77,8 +96,8 @@
   }
 }
 @media (min-width: 641px) {
-  .board,
-  .list {
+  .board:last-child,
+  .list:last-child {
     max-width: calc(50% - 1rem);
   }
 }

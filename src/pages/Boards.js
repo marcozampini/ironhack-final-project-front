@@ -45,9 +45,13 @@ const Boards = () => {
           <h2>Create a new board</h2>
         </>
       ) : (
-        <p>No boards created. Why don't you create a new board?</p>
+        <div className="main-content">
+          <p>No boards created. Why don't you create a new board?</p>
+        </div>
       )}
-      <NewBoardForm />
+      <div className="main-content">
+        <NewBoardForm />
+      </div>
     </>
   )
 }

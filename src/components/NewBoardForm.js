@@ -36,10 +36,11 @@ const NewBoardForm = () => {
           id="name"
           type="text"
           value={formData.name}
+          placeholder="Type the board's name here"
           onChange={handleChanges}
         />
         <input type="submit" value="Add board" />
-        <p>{ errorMessage.length !== 0 && errorMessage}</p>
+        <p>{errorMessage.length !== 0 && errorMessage}</p>
       </form>
     </>
   )

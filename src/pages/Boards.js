@@ -20,10 +20,10 @@ const Boards = () => {
       <h1>Boards</h1>
       {boards ? (
         <>
-          <div className="boards">
+          <div className="lists">
             {boards.map((board) => {
               return (
-                <div className="board" key={board._id}>
+                <div className="list" key={board._id}>
                   <h2>
                     <Link to={board._id}>{board.name}</Link>
                   </h2>
@@ -31,13 +31,13 @@ const Boards = () => {
                     <AvatarUsername
                       avatarUrl={board.owner.avatarUrl}
                       username={board.owner.username}
-                    />{' '}
-                    {board.isOwner && (
-                      <button onClick={(e) => handleDelete(board._id, e)}>
-                        Delete board
-                      </button>
-                    )}
+                    />
                   </p>
+                  {board.isOwner && (
+                    <button onClick={(e) => handleDelete(board._id, e)}>
+                      <i className="fa-solid fa-trash-can"></i> Delete board
+                    </button>
+                  )}
                 </div>
               )
             })}

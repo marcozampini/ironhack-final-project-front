@@ -1,11 +1,9 @@
-.boards,
 .lists {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
   margin-bottom: 1rem;
 }
-.board,
 .list {
   flex: 1;
   background-color: #fcf8e8;
@@ -14,9 +12,14 @@
   padding: 1rem;
   margin: 0 0.5rem 1rem;
 }
-.board h2,
 .list h2 {
   white-space: nowrap;
+}
+.list a {
+  color: #333;
+}
+.list a:hover {
+  color: #df7861;
 }
 .board-name {
   display: flex;
@@ -90,13 +93,11 @@
   margin-bottom: 0.2rem;
 }
 @media (max-width: 640px) {
-  .board,
   .list {
     width: 100%;
   }
 }
 @media (min-width: 641px) {
-  .board:last-child,
   .list:last-child {
     max-width: calc(50% - 1rem);
   }

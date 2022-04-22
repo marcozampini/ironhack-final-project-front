@@ -118,7 +118,6 @@ const Board = () => {
                       textAfter={"'s list"}
                     />
                   </h2>
-
                   <ul>
                     {list.names
                       .sort((a, b) => {
@@ -145,9 +144,9 @@ const Board = () => {
                   </ul>
                   {list.isOwner && (
                     <button onClick={toggleModalVisibility}>
-                      <i className="fa-solid fa-circle-plus"></i> Add name
+                      <i className="fa-solid fa-circle-plus"></i> Add names
                     </button>
-                  )}
+                  )}{' '}
                   {((list.isOwner && !currentBoard.isOwner) ||
                     (!list.isOwner && currentBoard.isOwner)) && (
                     <button

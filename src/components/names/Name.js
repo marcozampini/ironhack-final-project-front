@@ -116,7 +116,7 @@ const Name = ({ nameId, name, weight, displayMode, list }) => {
               </button>
             </div>
           ) : (
-            <div className="resultAction name">
+            <div className="resultAction">
               <DislikeTwoTone
                 twoToneColor={rating === -1 ? '#ff3d3d' : '#cccccc'}
                 onClick={() =>

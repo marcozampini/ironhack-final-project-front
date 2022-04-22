@@ -39,6 +39,7 @@ const NameSearchModal = ({ isVisible, toggleVisibility }) => {
       {isVisible && (
         <div className="modal-container">
           <div className="modal-content">
+            <h2>Add names to your list</h2>
             <div className="searchForm">
               <form onSubmit={handleSubmit}>
                 <label htmlFor="q">Name</label>
@@ -49,7 +50,7 @@ const NameSearchModal = ({ isVisible, toggleVisibility }) => {
                   onChange={handleQueryChange}
                 />
 
-                <div>
+                <div class="toggle">
                   Limit length of names
                   <Switch
                     checkedChildren={<CheckOutlined />}
@@ -73,11 +74,16 @@ const NameSearchModal = ({ isVisible, toggleVisibility }) => {
                   />
                 </div>
 
-                <input type="submit" value="search" />
+                <button type="submit">
+                  <i class="fa-solid fa-magnifying-glass"></i> Search
+                </button>
               </form>
             </div>
-            <button className="modalCloseButton" onClick={toggleVisibility}>
-              Close
+            <button
+              className="close modalCloseButton"
+              onClick={toggleVisibility}
+            >
+              <i class="fa-solid fa-xmark"></i>
             </button>
             <div className="searchResults">
               <ul className="list">
@@ -87,7 +93,7 @@ const NameSearchModal = ({ isVisible, toggleVisibility }) => {
                     .map((item) => {
                       console.log('ITEM', item)
                       return (
-                        <li key={item._id}>
+                        <li key={item._id} className="name">
                           <Name
                             name={item.name.value}
                             nameId={item._id}

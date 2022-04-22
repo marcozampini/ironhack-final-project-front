@@ -101,6 +101,68 @@ const Sidebar = () => {
       <button onClick={handleMenu}>
         <i class="fa-solid fa-bars"></i> {toggleMenuText}
       </button>
+      <div className="landingPagePopUp">
+        <div class="box">
+          <button>
+            <a class="button" href="#popup1">
+              Meet our team
+            </a>
+          </button>
+        </div>
+        <div id="popup1" class="overlay">
+          <div class="popup">
+            <h2>Meet Our Team</h2>
+            <a class="close" href="/#">
+              &times;
+            </a>
+            <div class="content">
+              <h4 className="textBold">Thanks for visiting our page!!</h4>{' '}
+              <p>
+                We are students fromIronhack, looking forward to build career as
+                a webdeveloper. This is our final project of our web-development
+                program.
+              </p>
+              <ul>
+                <li className="textBold"> Brian Valette</li>
+                <p>
+                  Coffee professional retrained toward tech industry with the
+                  same passion for well crafted products, willing to integrate a
+                  tech team to bring my creativity and expertise in.
+                </p>
+                <h5>
+                  <a href="https://github.com/42f">
+                    {' '}
+                    Github: https://github.com/42f
+                  </a>
+                </h5>
+                <li className="textBold">Marco Zampini</li>
+                <p>
+                  I am passionate about IT and human relationships. My mission
+                  is bring these two topics together. I'm working to make my
+                  mission become my super power.
+                </p>
+                <h5>
+                  <a href="https://github.com/marcozampini">
+                    {' '}
+                    Github: https://github.com/marcozampini
+                  </a>
+                </h5>
+                <li className="textBold">Akanksha Pradhan</li>
+                <p>
+                  Highly motivated, self-starting developer seeking to launch a
+                  career building web applications and services.
+                </p>
+                <h5>
+                  <a href="https://github.com/Pradhan-90">
+                    {' '}
+                    Github: https://github.com/Pradhan-90
+                  </a>
+                </h5>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </aside>
   )
 }

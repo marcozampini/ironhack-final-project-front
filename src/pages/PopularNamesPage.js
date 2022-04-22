@@ -7,8 +7,15 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const PopularNamesPage = () => {
   const { cca3 } = useParams()
+  const { limit } = useParams()
+  let popularNamesNumber
   const [currentCountryData, setCurrentCountryData] = useState(undefined)
-  const popularNamesNumber = 20
+
+  if (isNaN(limit)) {
+    popularNamesNumber = 10
+  } else {
+    popularNamesNumber = limit
+  }
 
   const getCountry = useCallback(async () => {
     try {
@@ -19,7 +26,7 @@ const PopularNamesPage = () => {
     } catch (error) {
       console.error(error)
     }
-  }, [cca3])
+  }, [cca3, popularNamesNumber])
 
   useEffect(() => {
     getCountry()
@@ -34,34 +41,60 @@ const PopularNamesPage = () => {
             <img
               src={`https://countryflagsapi.com/svg/${cca3}`}
               alt={`Flag of ${currentCountryData.country.name.common}`}
+            />{' '}
+            The {popularNamesNumber} most popular names in{' '}
+            {currentCountryData.country.name.common}{' '}
+            <img
+              src={`https://countryflagsapi.com/svg/${cca3}`}
+              alt={`Flag of ${currentCountryData.country.name.common}`}
             />
-            {popularNamesNumber} most popular names in{' '}
-            {currentCountryData.country.name.common}
           </h2>
-          <h3>Boys</h3>
-          <ul>
-            {currentCountryData.topBoysNames.map((boysName) => {
-              return (
-                <li key={boysName._id}>
-                  <Link to={'/names/' + boysName.name._id}>
-                    {capitalizeFirstLetter(boysName.name.value)}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-          <h3>Girls</h3>
-          <ul>
-            {currentCountryData.topGirlsNames.map((girlsName) => {
-              return (
-                <li key={girlsName._id}>
-                  <Link to={'/names/' + girlsName.name._id}>
-                    {capitalizeFirstLetter(girlsName.name.value)}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
+          <div className="lists">
+            <div className="list">
+              <h2>
+                <i className="fa-solid fa-venus"></i> Girls
+              </h2>
+              <ul>
+                {currentCountryData.topGirlsNames.map((girlsName) => {
+                  return (
+                    <li key={girlsName._id} className="name">
+                      {capitalizeFirstLetter(girlsName.name.value)}
+
+                      <Link
+                        className="button"
+                        to={'/names/' + girlsName.name._id}
+                      >
+                        <i className="fa-solid fa-circle-info"></i>{' '}
+                        <span className="info-text">Info</span>
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+            <div className="list">
+              <h2>
+                <i className="fa-solid fa-mars"></i> Boys
+              </h2>
+              <ul>
+                {currentCountryData.topBoysNames.map((boysName) => {
+                  return (
+                    <li key={boysName._id} className="name">
+                      {capitalizeFirstLetter(boysName.name.value)}
+
+                      <Link
+                        className="button"
+                        to={'/names/' + boysName.name._id}
+                      >
+                        <i className="fa-solid fa-circle-info"></i>{' '}
+                        <span className="info-text">Info</span>
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          </div>
         </>
       )}
     </>

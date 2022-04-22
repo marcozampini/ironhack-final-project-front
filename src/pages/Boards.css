@@ -38,11 +38,13 @@
   border-radius: 0.5rem;
 }
 
-.list .name button {
+.list .name button,
+.list .name a.button {
   color: #ddd;
   border: 1px solid white;
 }
-.list .name button:hover {
+.list .name button:hover,
+.list .name a.button:hover {
   color: #333;
   border: 1px solid #ccc;
 }

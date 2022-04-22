@@ -62,6 +62,10 @@ function App() {
             }
           />
           <Route path="/names/popular/:cca3" element={<PopularNamesPage />} />
+          <Route
+            path="/names/popular/:cca3/:limit"
+            element={<PopularNamesPage />}
+          />
           <Route path="/names/:nameId" element={<NamePage />} />
           <Route path="/*" element={<NotFound error={404} />} />
         </Routes>

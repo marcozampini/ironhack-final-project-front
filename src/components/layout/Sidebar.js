@@ -81,7 +81,7 @@ const Sidebar = () => {
           <ul>
             <li>
               <button onClick={logOutUser}>
-                <i class="fa-solid fa-right-from-bracket"></i> Log out
+                <i className="fa-solid fa-right-from-bracket"></i> Log out
               </button>
             </li>
           </ul>
@@ -100,21 +100,21 @@ const Sidebar = () => {
         </>
       )}
       <button onClick={handleMenu}>
-        <i class="fa-solid fa-bars"></i> {toggleMenuText}
+        <i className="fa-solid fa-bars"></i> {toggleMenuText}
       </button>
       <div className="landingPagePopUp">
-        <div class="box">
-          <a class="button" href="#popup1">
+        <div className="box">
+          <a className="button" href="#popup1">
             Meet our team
           </a>
         </div>
-        <div id="popup1" class="overlay">
-          <div class="popup">
+        <div id="popup1" className="overlay">
+          <div className="popup">
             <h2>Meet our team</h2>
-            <a class="close" href="/#">
+            <a className="close" href="/#">
               &times;
             </a>
-            <div class="content">
+            <div className="content">
               <h4 className="textBold">Thanks for visiting our project!</h4>{' '}
               <p>
                 We are students from Ironhack, looking forward to build career

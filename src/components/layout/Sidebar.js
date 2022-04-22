@@ -117,9 +117,9 @@ const Sidebar = () => {
             <div class="content">
               <h4 className="textBold">Thanks for visiting our project!</h4>{' '}
               <p>
-                We are students fromIronhack, looking forward to build career as
-                a webdeveloper. This is our final project of our web-development
-                program.
+                We are students from Ironhack, looking forward to build career
+                as a webdeveloper. This is our final project of our
+                web-development program.
               </p>
               <ul>
                 <li className="textBold"> Brian Valette</li>

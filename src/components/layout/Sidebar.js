@@ -106,20 +106,35 @@ const Sidebar = () => {
                   same passion for well crafted products, willing to integrate a
                   tech team to bring my creativity and expertise in.
                 </p>
-                <h5>Github: https://github.com/42f</h5>
+                <h5>
+                  <a href="https://github.com/42f">
+                    {' '}
+                    Github: https://github.com/42f
+                  </a>
+                </h5>
                 <li className="textBold">Marco Zampini</li>
                 <p>
                   I am passionate about IT and human relationships. My mission
                   is bring these two topics together. I'm working to make my
                   mission become my super power.
                 </p>
-                <h5>Github: https://github.com/marcozampini</h5>
+                <h5>
+                  <a href="https://github.com/marcozampini">
+                    {' '}
+                    Github: https://github.com/marcozampini
+                  </a>
+                </h5>
                 <li className="textBold">Akanksha Pradhan</li>
                 <p>
                   Highly motivated, self-starting developer seeking to launch a
                   career building web applications and services.
                 </p>
-                <h5>Github: https://github.com/Pradhan-90</h5>
+                <h5>
+                  <a href="https://github.com/Pradhan-90">
+                    {' '}
+                    Github: https://github.com/Pradhan-90
+                  </a>
+                </h5>
               </ul>
             </div>
           </div>

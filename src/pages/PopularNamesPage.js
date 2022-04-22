@@ -55,10 +55,13 @@ const PopularNamesPage = () => {
                 <i className="fa-solid fa-venus"></i> Girls
               </h2>
               <ul>
-                {currentCountryData.topGirlsNames.map((girlsName) => {
+                {currentCountryData.topGirlsNames.map((girlsName, index) => {
                   return (
                     <li key={girlsName._id} className="name">
-                      {capitalizeFirstLetter(girlsName.name.value)}
+                      <Link to={'/names/' + girlsName.name._id}>
+                        {index + 1}.{' '}
+                        {capitalizeFirstLetter(girlsName.name.value)}
+                      </Link>
 
                       <Link
                         className="button"
@@ -77,10 +80,13 @@ const PopularNamesPage = () => {
                 <i className="fa-solid fa-mars"></i> Boys
               </h2>
               <ul>
-                {currentCountryData.topBoysNames.map((boysName) => {
+                {currentCountryData.topBoysNames.map((boysName, index) => {
                   return (
                     <li key={boysName._id} className="name">
-                      {capitalizeFirstLetter(boysName.name.value)}
+                      <Link to={'/names/' + boysName.name._id}>
+                        {index + 1}.{' '}
+                        {capitalizeFirstLetter(boysName.name.value)}
+                      </Link>
 
                       <Link
                         className="button"

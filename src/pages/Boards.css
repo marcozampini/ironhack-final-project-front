@@ -37,7 +37,9 @@
   border: 1px solid #eee;
   border-radius: 0.5rem;
 }
-
+.list .name a {
+  color: #333;
+}
 .list .name button,
 .list .name a.button {
   color: #ddd;

@@ -13,6 +13,7 @@ const Sidebar = () => {
     { cca3: 'ita', name: 'Italy' },
     { cca3: 'fra', name: 'France' },
     { cca3: 'gbr', name: 'United Kingdom' },
+    { cca3: 'esp', name: 'Spain' },
   ]
 
   const handleMenu = () => {
@@ -103,20 +104,18 @@ const Sidebar = () => {
       </button>
       <div className="landingPagePopUp">
         <div class="box">
-          <button>
-            <a class="button" href="#popup1">
-              Meet our team
-            </a>
-          </button>
+          <a class="button" href="#popup1">
+            Meet our team
+          </a>
         </div>
         <div id="popup1" class="overlay">
           <div class="popup">
-            <h2>Meet Our Team</h2>
+            <h2>Meet our team</h2>
             <a class="close" href="/#">
               &times;
             </a>
             <div class="content">
-              <h4 className="textBold">Thanks for visiting our page!!</h4>{' '}
+              <h4 className="textBold">Thanks for visiting our project!</h4>{' '}
               <p>
                 We are students fromIronhack, looking forward to build career as
                 a webdeveloper. This is our final project of our web-development

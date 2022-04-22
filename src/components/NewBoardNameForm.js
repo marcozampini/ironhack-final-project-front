@@ -27,10 +27,10 @@ const NewBoardNameForm = ({ boardId, isVisible, toggleVisibility }) => {
   return (
     <>
       {isVisible && (
-        <form className="new-form" onSubmit={handleSubmit}>
-          <div className="close">
-            <button onClick={toggleVisibility}>Close</button>
-          </div>
+        <form className="inline-absolute-form" onSubmit={handleSubmit}>
+          <button className="close" onClick={toggleVisibility}>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
           <h2>Rename the board</h2>
           <label htmlFor="name">Name</label>
           <input
@@ -40,7 +40,9 @@ const NewBoardNameForm = ({ boardId, isVisible, toggleVisibility }) => {
             value={formData.name}
             onChange={handleChanges}
           />
-          <input type="submit" value="Save" />
+          <button type="submit">
+            <i class="fa-solid fa-floppy-disk"></i> Save
+          </button>
         </form>
       )}
     </>

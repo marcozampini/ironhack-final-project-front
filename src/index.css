@@ -26,7 +26,8 @@ textarea {
 }
 button,
 input[type='submit'],
-input[type='button'] {
+input[type='button'],
+a.button {
   background: none;
   padding: 0.1rem 0.3rem;
   border: 1px solid #ccc;
@@ -60,10 +61,13 @@ h4 {
   margin-bottom: 1rem;
   font-weight: 700;
 }
-.undisplayed {
-  display: none;
+p {
+  margin-bottom: 0.5rem;
 }
-.close {
-  position: absolute;
-  right: 1rem;
+strong {
+  font-weight: 700;
+}
+h2 > img {
+  vertical-align: baseline;
+  height: 1rem;
 }

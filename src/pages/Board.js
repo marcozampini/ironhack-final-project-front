@@ -81,11 +81,18 @@ const Board = () => {
               textAfter={"'s board"}
             />
           </h1>
+
           {currentBoard.isOwner ? (
-            <>
-              <button onClick={toggleAddFormVisibility}>Add participant</button>
-              <button onClick={toggleRenameFormVisibility}>Rename board</button>
-              <button onClick={handleDeleteBoard}>Delete board</button>
+            <div className="main-content">
+              <button onClick={toggleAddFormVisibility}>
+                <i className="fa-solid fa-user-plus"></i> Add participant
+              </button>{' '}
+              <button onClick={toggleRenameFormVisibility}>
+                <i class="fa-solid fa-pencil"></i> Rename board
+              </button>{' '}
+              <button onClick={handleDeleteBoard}>
+                <i className="fa-solid fa-trash-can"></i> Delete board
+              </button>
               <NewParticipantForm
                 isVisible={addFormVisible}
                 toggleVisibility={toggleAddFormVisibility}
@@ -95,7 +102,7 @@ const Board = () => {
                 isVisible={renameFormVisible}
                 toggleVisibility={toggleRenameFormVisibility}
               />
-            </>
+            </div>
           ) : (
             <></>
           )}
@@ -111,7 +118,6 @@ const Board = () => {
                       textAfter={"'s list"}
                     />
                   </h2>
-
                   <ul>
                     {list.names
                       .sort((a, b) => {
@@ -138,9 +144,9 @@ const Board = () => {
                   </ul>
                   {list.isOwner && (
                     <button onClick={toggleModalVisibility}>
-                      <i className="fa-solid fa-circle-plus"></i> Add name
+                      <i className="fa-solid fa-circle-plus"></i> Add names
                     </button>
-                  )}
+                  )}{' '}
                   {((list.isOwner && !currentBoard.isOwner) ||
                     (!list.isOwner && currentBoard.isOwner)) && (
                     <button

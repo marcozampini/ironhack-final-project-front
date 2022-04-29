@@ -39,7 +39,9 @@ const NewBoardForm = () => {
           placeholder="Type the board's name here"
           onChange={handleChanges}
         />
-        <input type="submit" value="Add board" />
+        <button>
+          <i className="fa-solid fa-circle-plus"></i> Add board
+        </button>
         <p>{errorMessage.length !== 0 && errorMessage}</p>
       </form>
     </>

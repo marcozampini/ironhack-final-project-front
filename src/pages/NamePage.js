@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import capitalizeFirstLetter from '../utils/capitalizeFirstLetter'
+import nthNumber from '../utils/nthNumber'
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -66,7 +67,7 @@ const NamePage = () => {
                         </p>
                         <p>
                           {capitalizeFirstLetter(currentName.value)} is ranked{' '}
-                          {stat.rank}th in this country.
+                          {nthNumber(stat.rank)} in this country.
                         </p>
                       </>
                     )

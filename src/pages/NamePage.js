@@ -65,7 +65,10 @@ const NamePage = () => {
                             {stat.count} girls have been named{' '}
                           </>
                         )}
-                        {capitalizeFirstLetter(currentName.value)} in 2020.
+                        <strong>
+                          {capitalizeFirstLetter(currentName.value)}
+                        </strong>{' '}
+                        in 2020.
                         <p>
                           {capitalizeFirstLetter(currentName.value)} is ranked{' '}
                           {nthNumber(stat.rank)} for baby{' '}

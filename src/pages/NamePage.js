@@ -67,7 +67,9 @@ const NamePage = () => {
                         </p>
                         <p>
                           {capitalizeFirstLetter(currentName.value)} is ranked{' '}
-                          {nthNumber(stat.rank)} in this country.
+                          {nthNumber(stat.rank)} for baby{' '}
+                          {stat.gender === 'm' ? <>boys</> : <>girls</>} in{' '}
+                          {country.name.common}.
                         </p>
                       </>
                     )

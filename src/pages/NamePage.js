@@ -47,20 +47,30 @@ const NamePage = () => {
                       alt={`Flag of ${country.name.common}`}
                     />
                   </h2>
-                  {country.fCount > 0 && (
-                    <p>
-                      <i className="fa-solid fa-venus"></i> {country.fCount}{' '}
-                      girls have been named{' '}
-                      {capitalizeFirstLetter(currentName.value)} in 2020.
-                    </p>
-                  )}
-                  {country.mCount > 0 && (
-                    <p>
-                      <i className="fa-solid fa-mars"></i> {country.mCount} boys
-                      have been named {capitalizeFirstLetter(currentName.value)}{' '}
-                      in 2020.
-                    </p>
-                  )}
+                  {country.stats.map((stat) => {
+                    return (
+                      <>
+                        <p>
+                          {stat.gender === 'm' ? (
+                            <>
+                              <i className="fa-solid fa-mars"></i> {stat.count}{' '}
+                              boys have been named{' '}
+                            </>
+                          ) : (
+                            <>
+                              <i className="fa-solid fa-venus"></i> {stat.count}{' '}
+                              girls have been named{' '}
+                            </>
+                          )}
+                          {capitalizeFirstLetter(currentName.value)} in 2020.
+                        </p>
+                        <p>
+                          {capitalizeFirstLetter(currentName.value)} is ranked{' '}
+                          {stat.rank}th in this country.
+                        </p>
+                      </>
+                    )
+                  })}
                 </div>
               )
             })}

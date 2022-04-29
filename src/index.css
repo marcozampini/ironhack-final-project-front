@@ -67,7 +67,15 @@ p {
 strong {
   font-weight: 700;
 }
-h2 > img {
+h1 > img {
+  vertical-align: baseline;
+  height: 1.3rem;
+}
+h2 > img,
+h2 > a > img {
   vertical-align: baseline;
   height: 1rem;
+}
+h2 > a {
+  border-bottom: 1px dashed #ccc;
 }

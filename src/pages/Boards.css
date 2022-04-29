@@ -92,12 +92,12 @@
   justify-content: space-between;
   margin-bottom: 0.2rem;
 }
-@media (max-width: 640px) {
+@media (max-width: 710px) {
   .list {
     width: 100%;
   }
 }
-@media (min-width: 641px) {
+@media (min-width: 1001px) {
   .list:last-child {
     max-width: calc(50% - 1rem);
   }

@@ -21,8 +21,9 @@ const LandingPage = () => {
         <p>
           You can see the most popular names in 2020 in{' '}
           <Link to="./names/popular/ita">Italy</Link>,{' '}
-          <Link to="./names/popular/fra">France</Link> and{' '}
-          <Link to="./names/popular/gbr">United Kingdom</Link>.
+          <Link to="./names/popular/fra">France</Link>,{' '}
+          <Link to="./names/popular/gbr">United Kingdom</Link> and{' '}
+          <Link to="./names/popular/esp">Spain</Link>.
         </p>
       </div>
       <h2>Ready?</h2>

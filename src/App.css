@@ -81,7 +81,7 @@ dark orange #df7861
   content: '\f007';
 }
 
-@media (max-width: 640px) {
+@media (max-width: 710px) {
   .App {
     flex-direction: column;
   }

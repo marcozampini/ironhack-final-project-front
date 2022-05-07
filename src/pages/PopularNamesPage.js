@@ -34,21 +34,41 @@ const PopularNamesPage = () => {
 
   return (
     <>
-      <h1>Popular names</h1>
       {currentCountryData && (
         <>
+          <h1>
+            Popular names in {currentCountryData.country.name.common}{' '}
+            <img
+              src={`https://countryflagsapi.com/svg/${cca3}`}
+              alt={`Flag of ${currentCountryData.country.name.common}`}
+            />
+          </h1>
           <h2>
             <img
               src={`https://countryflagsapi.com/svg/${cca3}`}
               alt={`Flag of ${currentCountryData.country.name.common}`}
             />{' '}
-            The {popularNamesNumber} most popular names in{' '}
-            {currentCountryData.country.name.common}{' '}
-            <img
-              src={`https://countryflagsapi.com/svg/${cca3}`}
-              alt={`Flag of ${currentCountryData.country.name.common}`}
-            />
+            The {popularNamesNumber} most popular names
           </h2>
+          <div className="main-content">
+            <p>
+              <Link to={`/names/popular/${cca3}/10`}>
+                The 10 most popular names
+              </Link>{' '}
+              |{' '}
+              <Link to={`/names/popular/${cca3}/50`}>
+                The 50 most popular names
+              </Link>{' '}
+              |{' '}
+              <Link to={`/names/popular/${cca3}/100`}>
+                The 100 most popular names
+              </Link>{' '}
+              |{' '}
+              <Link to={`/names/popular/${cca3}/1000`}>
+                The 1000 most popular names
+              </Link>
+            </p>
+          </div>
           <div className="lists">
             <div className="list">
               <h2>

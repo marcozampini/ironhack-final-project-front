@@ -50,6 +50,7 @@
 }
 .list .name button:hover,
 .list .name a.button:hover {
+  background-color: white;
   color: #333;
   border: 1px solid #ccc;
 }
